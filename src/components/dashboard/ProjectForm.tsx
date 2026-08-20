@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -7,7 +7,8 @@ import { Textarea } from '@/components/ui/textarea'
 import { Switch } from '@/components/ui/switch'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Badge } from '@/components/ui/badge'
-import { Loader2, Plus, Sparkles, X } from 'lucide-react'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { Loader2, Plus, Sparkles, X, UploadCloud, Image as ImageIcon, Link as LinkIcon, Trash2 } from 'lucide-react'
 import { supabase, PROJECT_CATEGORIES, type Project, type ProjectCategory } from '@/lib/supabase'
 import { useAuth } from '@/contexts/AuthContext'
 import { toast } from 'sonner'
@@ -27,10 +28,13 @@ export default function ProjectForm({
 }: ProjectFormProps) {
   const { user } = useAuth()
   const [loading, setLoading] = useState(false)
+  const [uploading, setUploading] = useState(false)
+  const [dragActive, setDragActive] = useState(false)
 
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const [imageUrl, setImageUrl] = useState('')
+  const [imageTab, setImageTab] = useState<'upload' | 'url'>('upload')
   const [techInput, setTechInput] = useState('')
   const [techStack, setTechStack] = useState<string[]>([])
   const [liveUrl, setLiveUrl] = useState('')
@@ -38,6 +42,8 @@ export default function ProjectForm({
   const [status, setStatus] = useState<'draft' | 'published'>('published')
   const [isFeatured, setIsFeatured] = useState(false)
   const [category, setCategory] = useState<ProjectCategory | ''>('')
+
+  const fileInputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
     if (projectToEdit) {
@@ -50,6 +56,7 @@ export default function ProjectForm({
       setStatus(projectToEdit.status || 'published')
       setIsFeatured(projectToEdit.is_featured || false)
       setCategory(projectToEdit.category || '')
+      setImageTab(projectToEdit.image_url?.includes('supabase') ? 'upload' : 'url')
     } else {
       resetForm()
     }
@@ -66,6 +73,79 @@ export default function ProjectForm({
     setStatus('published')
     setIsFeatured(false)
     setCategory('')
+    setImageTab('upload')
+  }
+
+  const handleFileUpload = async (file: File) => {
+    if (!file) return
+
+    // Validasi format
+    if (!file.type.startsWith('image/')) {
+      toast.error('File harus berupa gambar (JPG, PNG, WebP, GIF, SVG)')
+      return
+    }
+
+    // Validasi ukuran (max 5MB)
+    if (file.size > 5 * 1024 * 1024) {
+      toast.error('Ukuran gambar maksimal 5MB')
+      return
+    }
+
+    setUploading(true)
+    try {
+      const fileExt = file.name.split('.').pop()
+      const cleanFileName = file.name.replace(/[^a-zA-Z0-9]/g, '_')
+      const fileName = `${Date.now()}_${cleanFileName}.${fileExt}`
+      const filePath = `projects/${fileName}`
+
+      const { error: uploadError } = await supabase.storage
+        .from('project-images')
+        .upload(filePath, file, {
+          cacheControl: '3600',
+          upsert: true,
+        })
+
+      if (uploadError) {
+        // Jika bucket belum dibuat di Supabase, berikan instruksi ramah
+        if (uploadError.message.includes('Bucket not found') || uploadError.message.includes('not found')) {
+          throw new Error('Bucket "project-images" belum dibuat di Supabase. Silakan jalankan script supabase_storage_setup.sql di SQL Editor Supabase.')
+        }
+        throw uploadError
+      }
+
+      const { data } = supabase.storage
+        .from('project-images')
+        .getPublicUrl(filePath)
+
+      if (data?.publicUrl) {
+        setImageUrl(data.publicUrl)
+        toast.success('Gambar berhasil di-upload ke Supabase Storage!')
+      }
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : 'Gagal mengupload gambar'
+      toast.error(msg)
+    } finally {
+      setUploading(false)
+    }
+  }
+
+  const handleDrag = (e: React.DragEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
+    if (e.type === 'dragenter' || e.type === 'dragover') {
+      setDragActive(true)
+    } else if (e.type === 'dragleave') {
+      setDragActive(false)
+    }
+  }
+
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
+    setDragActive(false)
+    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+      handleFileUpload(e.dataTransfer.files[0])
+    }
   }
 
   const handleAddTech = (e: React.KeyboardEvent | React.MouseEvent) => {
@@ -200,31 +280,145 @@ export default function ProjectForm({
             </Select>
           </div>
 
-          {/* Image URL & Live Preview */}
-          <div className="space-y-1.5">
-            <Label htmlFor="imageUrl" className="text-xs font-semibold">
-              URL Gambar Thumbnail
-            </Label>
-            <Input
-              id="imageUrl"
-              placeholder="https://images.unsplash.com/photo-..."
-              value={imageUrl}
-              onChange={(e) => setImageUrl(e.target.value)}
-              className="bg-background/60"
-            />
-            {imageUrl && (
-              <div className="mt-2 relative rounded-xl overflow-hidden aspect-video max-h-40 border border-border/40 bg-muted/20">
+          {/* Image Upload / URL with Drag & Drop */}
+          <div className="space-y-2">
+            <div className="flex items-center justify-between">
+              <Label className="text-xs font-semibold flex items-center gap-1.5">
+                <ImageIcon className="h-3.5 w-3.5 text-primary" />
+                Gambar Thumbnail Proyek
+              </Label>
+              {imageUrl && (
+                <button
+                  type="button"
+                  onClick={() => setImageUrl('')}
+                  className="text-xs text-destructive hover:underline flex items-center gap-1"
+                >
+                  <Trash2 className="h-3 w-3" /> Hapus Gambar
+                </button>
+              )}
+            </div>
+
+            {imageUrl ? (
+              /* Image Preview Box */
+              <div className="relative rounded-2xl overflow-hidden border border-border/40 bg-muted/20 aspect-video max-h-48 group">
                 <img
                   src={imageUrl}
-                  alt="Preview"
+                  alt="Thumbnail Proyek"
                   className="w-full h-full object-cover"
-                  onError={(e) => {
-                    ;(e.target as HTMLImageElement).src =
-                      'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=80'
-                  }}
                 />
+                <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
+                  <Button
+                    type="button"
+                    size="sm"
+                    variant="secondary"
+                    onClick={() => fileInputRef.current?.click()}
+                    disabled={uploading}
+                    className="rounded-xl text-xs gap-1.5"
+                  >
+                    <UploadCloud className="h-3.5 w-3.5" />
+                    Ganti File
+                  </Button>
+                  <Button
+                    type="button"
+                    size="sm"
+                    variant="destructive"
+                    onClick={() => setImageUrl('')}
+                    className="rounded-xl text-xs gap-1.5"
+                  >
+                    <X className="h-3.5 w-3.5" />
+                    Hapus
+                  </Button>
+                </div>
               </div>
+            ) : (
+              /* Image Upload Tabs */
+              <Tabs
+                value={imageTab}
+                onValueChange={(val) => setImageTab(val as 'upload' | 'url')}
+                className="w-full"
+              >
+                <TabsList className="grid w-full grid-cols-2 mb-2 h-9">
+                  <TabsTrigger value="upload" className="text-xs gap-1.5">
+                    <UploadCloud className="h-3.5 w-3.5" />
+                    Upload File (Storage)
+                  </TabsTrigger>
+                  <TabsTrigger value="url" className="text-xs gap-1.5">
+                    <LinkIcon className="h-3.5 w-3.5" />
+                    Link URL
+                  </TabsTrigger>
+                </TabsList>
+
+                <TabsContent value="upload" className="mt-0">
+                  <div
+                    onDragEnter={handleDrag}
+                    onDragLeave={handleDrag}
+                    onDragOver={handleDrag}
+                    onDrop={handleDrop}
+                    onClick={() => fileInputRef.current?.click()}
+                    className={`border-2 border-dashed rounded-2xl p-6 text-center cursor-pointer transition-all duration-200 flex flex-col items-center justify-center gap-2 ${
+                      dragActive
+                        ? 'border-primary bg-primary/10 scale-[0.99]'
+                        : 'border-border/60 hover:border-primary/40 hover:bg-muted/20 bg-background/30'
+                    }`}
+                  >
+                    <input
+                      ref={fileInputRef}
+                      type="file"
+                      accept="image/png,image/jpeg,image/webp,image/gif,image/svg+xml"
+                      className="hidden"
+                      onChange={(e) => {
+                        if (e.target.files && e.target.files[0]) {
+                          handleFileUpload(e.target.files[0])
+                        }
+                      }}
+                    />
+
+                    {uploading ? (
+                      <div className="py-4 flex flex-col items-center gap-2">
+                        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+                        <span className="text-xs font-medium text-muted-foreground">
+                          Mengupload gambar ke Supabase Storage...
+                        </span>
+                      </div>
+                    ) : (
+                      <>
+                        <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary">
+                          <UploadCloud className="h-6 w-6" />
+                        </div>
+                        <div className="space-y-0.5">
+                          <p className="text-sm font-semibold text-foreground">
+                            Klik untuk memilih gambar atau geser (drag & drop) ke sini
+                          </p>
+                          <p className="text-xs text-muted-foreground">
+                            PNG, JPG, WebP, SVG, atau GIF (Maks. 5MB)
+                          </p>
+                        </div>
+                      </>
+                    )}
+                  </div>
+                </TabsContent>
+
+                <TabsContent value="url" className="mt-0">
+                  <Input
+                    placeholder="https://images.unsplash.com/photo-..."
+                    value={imageUrl}
+                    onChange={(e) => setImageUrl(e.target.value)}
+                    className="bg-background/60"
+                  />
+                </TabsContent>
+              </Tabs>
             )}
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/png,image/jpeg,image/webp,image/gif,image/svg+xml"
+              className="hidden"
+              onChange={(e) => {
+                if (e.target.files && e.target.files[0]) {
+                  handleFileUpload(e.target.files[0])
+                }
+              }}
+            />
           </div>
 
           {/* Tech Stack Tags Input */}
@@ -340,13 +534,13 @@ export default function ProjectForm({
               type="button"
               variant="outline"
               onClick={() => onOpenChange(false)}
-              disabled={loading}
+              disabled={loading || uploading}
             >
               Batal
             </Button>
             <Button
               type="submit"
-              disabled={loading}
+              disabled={loading || uploading}
               className="gradient-bg text-white hover:opacity-90 shadow-md font-semibold"
             >
               {loading ? (
