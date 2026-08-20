@@ -50,7 +50,7 @@ export default function ContactSection() {
     } catch (err: unknown) {
       console.error('Contact submission error:', err)
       // Even if offline or table missing, open mailto fallback seamlessly
-      window.location.href = `mailto:muhammadauliaputra@gmail.com?subject=${encodeURIComponent(
+      window.location.href = `mailto:muhammadauliaputra.ai@gmail.com?subject=${encodeURIComponent(
         subject || 'Pesan dari Portofolio'
       )}&body=${encodeURIComponent(`Nama: ${name}\nEmail: ${email}\n\n${message}`)}`
       setSubmitted(true)
@@ -98,7 +98,7 @@ export default function ContactSection() {
               {/* Direct Info List */}
               <div className="space-y-3.5 pt-2">
                 <a
-                  href="mailto:muhammadauliaputra@gmail.com"
+                  href="mailto:muhammadauliaputra.ai@gmail.com"
                   className="flex items-center gap-3.5 p-3.5 rounded-2xl bg-card/60 hover:bg-muted/40 border border-border/30 transition-all hover-lift group"
                 >
                   <div className="w-10 h-10 rounded-xl bg-sky-500/10 text-sky-500 flex items-center justify-center group-hover:scale-105 transition-transform">
@@ -106,7 +106,7 @@ export default function ContactSection() {
                   </div>
                   <div>
                     <span className="text-[11px] font-semibold text-muted-foreground uppercase tracking-wider block">Email Langsung</span>
-                    <span className="text-xs sm:text-sm font-semibold text-foreground">muhammadauliaputra@gmail.com</span>
+                    <span className="text-xs sm:text-sm font-semibold text-foreground">muhammadauliaputra.ai@gmail.com</span>
                   </div>
                 </a>
 
@@ -148,7 +148,7 @@ export default function ContactSection() {
                     <LinkedinIcon className="h-5 w-5" />
                   </a>
                   <a
-                    href="mailto:muhammadauliaputra@gmail.com"
+                    href="mailto:muhammadauliaputra.ai@gmail.com"
                     className="p-3 rounded-xl glass hover:bg-muted/40 border border-border/40 text-muted-foreground hover:text-foreground transition-all hover-lift"
                     aria-label="Kirim Email Langsung"
                     title="Kirim Email"

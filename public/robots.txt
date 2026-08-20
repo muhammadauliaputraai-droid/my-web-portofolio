@@ -3,4 +3,4 @@ Allow: /
 Disallow: /dashboard
 Disallow: /login
 
-Sitemap: https://muhammadauliaputraai-droid.github.io/my-web-portofolio/sitemap.xml
+Sitemap: https://www.muhammadauliaputra.com/sitemap.xml

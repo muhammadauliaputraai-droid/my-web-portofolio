@@ -103,7 +103,7 @@ export default function BioSection() {
                   <LinkedinIcon className="h-4 w-4" />
                 </a>
                 <a
-                  href="mailto:muhammadauliaputra@gmail.com"
+                  href="mailto:muhammadauliaputra.ai@gmail.com"
                   className="p-2.5 rounded-xl glass hover:bg-muted/40 border border-border/40 text-muted-foreground hover:text-primary transition-colors"
                   aria-label="Send Email"
                   title="Email"

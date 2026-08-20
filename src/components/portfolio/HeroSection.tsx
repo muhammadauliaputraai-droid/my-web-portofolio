@@ -100,7 +100,7 @@ export default function HeroSection() {
           {[
             { href: 'https://github.com/muhammadauliaputraai-droid', icon: GithubIcon, label: 'GitHub' },
             { href: 'https://linkedin.com/in/muhammadauliaputra', icon: LinkedinIcon, label: 'LinkedIn' },
-            { href: 'mailto:muhammadauliaputra@gmail.com', icon: Mail, label: 'Email' },
+            { href: 'mailto:muhammadauliaputra.ai@gmail.com', icon: Mail, label: 'Email' },
           ].map((social) => (
             <a
               key={social.label}
