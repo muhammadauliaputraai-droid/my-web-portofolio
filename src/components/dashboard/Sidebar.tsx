@@ -7,7 +7,6 @@ import {
   FolderGit2,
   ExternalLink,
   LogOut,
-  Sparkles,
   X,
 } from 'lucide-react'
 
@@ -56,11 +55,13 @@ export default function Sidebar({
           <div className="p-6 border-b border-border/30 flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-xl gradient-bg flex items-center justify-center shadow-md">
-                <Sparkles className="h-5 w-5 text-white" />
+                <span className="text-xs font-black text-white tracking-wider">AP</span>
               </div>
               <div>
-                <h1 className="font-bold text-base gradient-text">Portfolio Admin</h1>
-                <p className="text-xs text-muted-foreground">Management Panel</p>
+                <h1 className="font-extrabold text-sm text-foreground">
+                  Aulia<span className="gradient-text">.dev</span>
+                </h1>
+                <p className="text-[11px] text-muted-foreground font-medium">Developer Workspace</p>
               </div>
             </div>
             {/* Mobile close */}

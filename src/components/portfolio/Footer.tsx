@@ -1,4 +1,4 @@
-import { Sparkles, Mail, Heart } from 'lucide-react'
+import { Mail, Heart } from 'lucide-react'
 import { GithubIcon, LinkedinIcon } from '@/components/ui/icons'
 
 export default function Footer() {
@@ -6,11 +6,11 @@ export default function Footer() {
 
   const links = [
     { label: 'Beranda', id: 'hero' },
-    { label: 'Biodata', id: 'bio' },
+    { label: 'Profil', id: 'bio' },
     { label: 'Keahlian', id: 'about' },
     { label: 'Layanan', id: 'services' },
     { label: 'Pengalaman', id: 'experience' },
-    { label: 'Proyek', id: 'projects' },
+    { label: 'Karya', id: 'projects' },
     { label: 'Kontak', id: 'contact' },
   ]
 
@@ -21,19 +21,26 @@ export default function Footer() {
           {/* Brand */}
           <div className="space-y-4">
             <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-lg gradient-bg flex items-center justify-center shadow-sm">
-                <Sparkles className="h-4 w-4 text-white" />
+              <div className="w-8 h-8 rounded-xl gradient-bg flex items-center justify-center shadow-sm">
+                <span className="text-xs font-black text-white tracking-wider">AP</span>
               </div>
-              <span className="text-base font-bold gradient-text tracking-tight">Portfolio</span>
+              <div>
+                <span className="text-base font-extrabold text-foreground tracking-tight">
+                  Aulia<span className="gradient-text">.dev</span>
+                </span>
+                <span className="text-[11px] text-muted-foreground block -mt-0.5">
+                  Muhammad Aulia Putra
+                </span>
+              </div>
             </div>
             <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed max-w-xs">
-              Membangun solusi web modern berkinerja tinggi, berestetika bersih, dan fungsional. Mari berkolaborasi!
+              Situs resmi rekayasa web oleh Muhammad Aulia Putra. Membangun aplikasi modern, terstruktur rapi, dan berkinerja tinggi.
             </p>
           </div>
 
           {/* Quick Links */}
           <div className="space-y-3">
-            <h4 className="font-semibold text-sm text-foreground">Navigasi</h4>
+            <h4 className="font-semibold text-sm text-foreground">Navigasi Halaman</h4>
             <div className="grid grid-cols-2 gap-2">
               {links.map((link) => (
                 <button
@@ -51,10 +58,10 @@ export default function Footer() {
 
           {/* Social */}
           <div className="space-y-3">
-            <h4 className="font-semibold text-sm text-foreground">Terhubung</h4>
+            <h4 className="font-semibold text-sm text-foreground">Terhubung Langsung</h4>
             <div className="flex gap-2.5">
               {[
-                { href: 'https://github.com', icon: GithubIcon, label: 'GitHub' },
+                { href: 'https://github.com/muhammadauliaputraai-droid', icon: GithubIcon, label: 'GitHub' },
                 { href: 'https://linkedin.com', icon: LinkedinIcon, label: 'LinkedIn' },
                 { href: 'mailto:hello@example.com', icon: Mail, label: 'Email' },
               ].map((social) => (
@@ -75,9 +82,9 @@ export default function Footer() {
 
         {/* Bottom */}
         <div className="mt-10 pt-6 border-t border-border/20 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-muted-foreground">
-          <p>© {currentYear} Muhammad Aulia Putra. All rights reserved.</p>
+          <p>© {currentYear} Muhammad Aulia Putra (Aulia.dev). All rights reserved.</p>
           <p className="flex items-center gap-1.5">
-            Dibuat dengan <Heart className="h-3 w-3 text-rose-400 fill-rose-400" /> menggunakan React 19, TypeScript & Supabase
+            Dirancang & dibangun dengan <Heart className="h-3 w-3 text-rose-400 fill-rose-400" /> menggunakan React 19 & Supabase
           </p>
         </div>
       </div>

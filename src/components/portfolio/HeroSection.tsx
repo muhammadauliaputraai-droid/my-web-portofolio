@@ -97,7 +97,7 @@ export default function HeroSection() {
         {/* Social Quick Links */}
         <div className="flex justify-center gap-2.5 mb-12 animate-slide-up stagger-4">
           {[
-            { href: 'https://github.com', icon: GithubIcon, label: 'GitHub' },
+            { href: 'https://github.com/muhammadauliaputraai-droid', icon: GithubIcon, label: 'GitHub' },
             { href: 'https://linkedin.com', icon: LinkedinIcon, label: 'LinkedIn' },
             { href: 'mailto:hello@example.com', icon: Mail, label: 'Email' },
           ].map((social) => (

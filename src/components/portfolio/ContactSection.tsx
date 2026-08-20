@@ -103,7 +103,7 @@ export default function ContactSection() {
                 </span>
                 <div className="flex gap-2.5">
                   <a
-                    href="https://github.com"
+                    href="https://github.com/muhammadauliaputraai-droid"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="p-3 rounded-xl glass hover:bg-muted/40 border border-border/40 text-muted-foreground hover:text-foreground transition-all hover-lift"

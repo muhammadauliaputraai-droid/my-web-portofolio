@@ -2,16 +2,16 @@ import { useState, useEffect } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { useAuth } from '@/contexts/AuthContext'
 import { Button } from '@/components/ui/button'
-import { Menu, X, Sparkles } from 'lucide-react'
+import { Menu, X } from 'lucide-react'
 import ThemeToggle from '@/components/ui/theme-toggle'
 
 const navLinks = [
   { label: 'Beranda', href: '#hero' },
-  { label: 'Biodata', href: '#bio' },
+  { label: 'Profil', href: '#bio' },
   { label: 'Keahlian', href: '#about' },
   { label: 'Layanan', href: '#services' },
   { label: 'Pengalaman', href: '#experience' },
-  { label: 'Proyek', href: '#projects' },
+  { label: 'Karya', href: '#projects' },
   { label: 'Kontak', href: '#contact' },
 ]
 
@@ -49,15 +49,24 @@ export default function Navbar() {
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-        {/* Logo */}
+        {/* Brand Logo */}
         <button
           onClick={() => handleNavClick('#hero')}
-          className="flex items-center gap-2.5 group cursor-pointer"
+          className="flex items-center gap-2.5 group cursor-pointer text-left"
         >
           <div className="w-9 h-9 rounded-xl gradient-bg flex items-center justify-center shadow-sm group-hover:opacity-90 transition-opacity">
-            <Sparkles className="h-4 w-4 text-white" />
+            <span className="text-xs font-black text-white tracking-wider">AP</span>
           </div>
-          <span className="text-base font-bold gradient-text hidden sm:block tracking-tight">Portfolio</span>
+          <div>
+            <div className="flex items-center gap-1">
+              <span className="text-sm sm:text-base font-extrabold text-foreground tracking-tight">
+                Aulia<span className="gradient-text">.dev</span>
+              </span>
+            </div>
+            <span className="text-[10px] text-muted-foreground font-medium block -mt-1 hidden sm:block">
+              Muhammad Aulia Putra
+            </span>
+          </div>
         </button>
 
         {/* Desktop Nav */}
@@ -66,7 +75,7 @@ export default function Navbar() {
             <button
               key={link.href}
               onClick={() => handleNavClick(link.href)}
-              className="px-3 py-1.5 text-xs font-semibold text-muted-foreground hover:text-foreground rounded-lg hover:bg-muted/40 transition-colors cursor-pointer"
+              className="px-3.5 py-1.5 text-xs font-semibold text-muted-foreground hover:text-foreground rounded-lg hover:bg-muted/40 transition-colors cursor-pointer"
             >
               {link.label}
             </button>
@@ -80,7 +89,7 @@ export default function Navbar() {
               className="gradient-bg text-white hover:opacity-90 shadow-sm rounded-lg text-xs font-semibold px-4"
               onClick={() => navigate(session ? '/dashboard' : '/login')}
             >
-              {session ? 'Dashboard' : 'Masuk'}
+              {session ? 'Workspace' : 'Masuk'}
             </Button>
           </div>
         </div>
@@ -119,7 +128,7 @@ export default function Navbar() {
                   navigate(session ? '/dashboard' : '/login')
                 }}
               >
-                {session ? 'Dashboard' : 'Masuk'}
+                {session ? 'Buka Workspace' : 'Masuk Admin'}
               </Button>
             </div>
           </div>
