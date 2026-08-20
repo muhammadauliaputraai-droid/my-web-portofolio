@@ -8,6 +8,8 @@ import ThemeToggle from '@/components/ui/theme-toggle'
 const navLinks = [
   { label: 'Beranda', href: '#hero' },
   { label: 'Tentang', href: '#about' },
+  { label: 'Layanan', href: '#services' },
+  { label: 'Pengalaman', href: '#experience' },
   { label: 'Proyek', href: '#projects' },
   { label: 'Kontak', href: '#contact' },
 ]
@@ -58,19 +60,19 @@ export default function Navbar() {
         </button>
 
         {/* Desktop Nav */}
-        <div className="hidden md:flex items-center gap-1">
+        <div className="hidden md:flex items-center gap-0.5">
           {navLinks.map((link) => (
             <button
               key={link.href}
               onClick={() => handleNavClick(link.href)}
-              className="px-3.5 py-1.5 text-xs font-semibold text-muted-foreground hover:text-foreground rounded-lg hover:bg-muted/40 transition-colors cursor-pointer"
+              className="px-3 py-1.5 text-xs font-semibold text-muted-foreground hover:text-foreground rounded-lg hover:bg-muted/40 transition-colors cursor-pointer"
             >
               {link.label}
             </button>
           ))}
 
           {/* Theme Toggle & Auth Button */}
-          <div className="ml-3 flex items-center gap-2 pl-3 border-l border-border/40">
+          <div className="ml-2 flex items-center gap-2 pl-3 border-l border-border/40">
             <ThemeToggle />
             <Button
               size="sm"

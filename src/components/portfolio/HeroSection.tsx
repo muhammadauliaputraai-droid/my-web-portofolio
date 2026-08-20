@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button'
-import { ArrowDown, Mail, Sparkles } from 'lucide-react'
+import { ArrowDown, Mail, Sparkles, Code2, Layers } from 'lucide-react'
 import { GithubIcon, LinkedinIcon } from '@/components/ui/icons'
+import CodeTerminal from '@/components/portfolio/CodeTerminal'
 
 export default function HeroSection() {
   const scrollToProjects = () => {
@@ -12,15 +13,15 @@ export default function HeroSection() {
   }
 
   return (
-    <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section id="hero" className="relative min-h-screen flex flex-col items-center justify-center pt-28 pb-16 overflow-hidden">
       {/* === Light Blue + Pastel Red Ambient Lighting === */}
       <div className="absolute inset-0 pointer-events-none">
         {/* Soft Sky Blue Glow (Top Left) */}
-        <div className="absolute top-[-5%] left-[-5%] w-[480px] h-[480px] rounded-full bg-sky-400/15 blur-[130px] dark:bg-sky-500/20" />
+        <div className="absolute top-[-5%] left-[-5%] w-[500px] h-[500px] rounded-full bg-sky-400/15 blur-[140px] dark:bg-sky-500/20" />
         {/* Soft Pastel Red Glow (Bottom Right) */}
-        <div className="absolute bottom-[-5%] right-[-5%] w-[480px] h-[480px] rounded-full bg-rose-400/15 blur-[140px] dark:bg-rose-500/20" />
-        {/* Center fusion glow */}
-        <div className="absolute top-[40%] left-[30%] w-[350px] h-[350px] rounded-full bg-cyan-400/8 blur-[120px] dark:bg-cyan-500/10" />
+        <div className="absolute bottom-[5%] right-[-5%] w-[500px] h-[500px] rounded-full bg-rose-400/15 blur-[140px] dark:bg-rose-500/20" />
+        {/* Center ambient glow */}
+        <div className="absolute top-[35%] left-[30%] w-[380px] h-[380px] rounded-full bg-cyan-400/8 blur-[120px] dark:bg-cyan-500/10" />
 
         {/* Subtle dot pattern */}
         <div
@@ -32,33 +33,48 @@ export default function HeroSection() {
         />
       </div>
 
-      {/* === Content === */}
-      <div className="relative z-10 max-w-4xl mx-auto px-4 text-center">
+      {/* Floating decorative tech pills */}
+      <div className="hidden lg:block absolute left-8 top-1/3 p-2.5 rounded-2xl glass border border-border/40 text-xs font-semibold text-muted-foreground animate-[fade-in_0.6s_ease-out] hover-lift">
+        <div className="flex items-center gap-2">
+          <Code2 className="h-4 w-4 text-sky-500" />
+          <span>TypeScript & React</span>
+        </div>
+      </div>
+      <div className="hidden lg:block absolute right-8 top-1/3 p-2.5 rounded-2xl glass border border-border/40 text-xs font-semibold text-muted-foreground animate-[fade-in_0.8s_ease-out] hover-lift">
+        <div className="flex items-center gap-2">
+          <Layers className="h-4 w-4 text-rose-500" />
+          <span>Supabase & PostgreSQL</span>
+        </div>
+      </div>
+
+      {/* === Content Container === */}
+      <div className="relative z-10 max-w-5xl mx-auto px-4 text-center w-full">
         {/* Status Badge */}
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass gradient-border mb-8 animate-fade-in">
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass gradient-border mb-8 animate-fade-in shadow-sm">
           <span className="relative flex h-2 w-2">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
             <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
           </span>
-          <span className="text-xs font-medium text-muted-foreground">Tersedia untuk Kolaborasi</span>
+          <span className="text-xs font-medium text-muted-foreground">Tersedia untuk Kolaborasi & Proyek Baru</span>
         </div>
 
         {/* Main Heading */}
-        <h1 className="text-5xl sm:text-6xl lg:text-7xl font-extrabold leading-[1.15] mb-6 animate-slide-up tracking-tight">
+        <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold leading-[1.12] mb-6 animate-slide-up tracking-tight">
           <span className="text-foreground">Hai, Saya</span>{' '}
           <span className="gradient-text">Full-Stack Developer</span>
         </h1>
 
         {/* Description */}
-        <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed animate-slide-up stagger-2">
-          Membangun aplikasi web modern dengan fokus pada performa tinggi, perpaduan visual yang estetis,
-          serta pengalaman pengguna yang intuitif menggunakan React & TypeScript.
+        <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto mb-8 leading-relaxed animate-slide-up stagger-2">
+          Membangun aplikasi web modern berkinerja tinggi dengan fondasi kode bersih,
+          arsitektur modular, dan desain antarmuka yang intuitif.
         </p>
 
         {/* CTA Buttons */}
-        <div className="flex flex-wrap justify-center gap-4 mb-12 animate-slide-up stagger-3">
+        <div className="flex flex-wrap justify-center gap-3.5 mb-10 animate-slide-up stagger-3">
           <Button
             size="lg"
-            className="gradient-bg text-white hover:opacity-90 shadow-md hover:shadow-lg transition-all duration-300 px-8 py-6 text-base font-semibold rounded-xl glow"
+            className="gradient-bg text-white hover:opacity-90 shadow-md hover:shadow-lg transition-all duration-300 px-8 py-5 text-sm font-semibold rounded-xl glow"
             onClick={scrollToProjects}
           >
             <Sparkles className="mr-2 h-4 w-4" />
@@ -67,15 +83,15 @@ export default function HeroSection() {
           <Button
             size="lg"
             variant="outline"
-            className="border-border/60 hover:bg-muted/40 px-8 py-6 text-base font-semibold backdrop-blur-sm rounded-xl gradient-border"
+            className="border-border/60 hover:bg-muted/40 px-8 py-5 text-sm font-semibold backdrop-blur-sm rounded-xl gradient-border"
             onClick={scrollToContact}
           >
             Hubungi Saya
           </Button>
         </div>
 
-        {/* Social Links */}
-        <div className="flex justify-center gap-3 animate-slide-up stagger-4">
+        {/* Social Quick Links */}
+        <div className="flex justify-center gap-2.5 mb-12 animate-slide-up stagger-4">
           {[
             { href: 'https://github.com', icon: GithubIcon, label: 'GitHub' },
             { href: 'https://linkedin.com', icon: LinkedinIcon, label: 'LinkedIn' },
@@ -86,19 +102,24 @@ export default function HeroSection() {
               href={social.href}
               target={social.href.startsWith('mailto') ? undefined : '_blank'}
               rel="noopener noreferrer"
-              className="p-3 rounded-xl glass hover:bg-muted/40 transition-all duration-200 hover-lift group border border-border/40"
+              className="p-2.5 rounded-xl glass hover:bg-muted/40 transition-all duration-200 hover-lift group border border-border/40"
               aria-label={social.label}
             >
-              <social.icon className="h-5 w-5 text-muted-foreground group-hover:text-primary transition-colors" />
+              <social.icon className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" />
             </a>
           ))}
         </div>
 
+        {/* Interactive Code Terminal Preview */}
+        <div className="animate-slide-up stagger-5 mb-8">
+          <CodeTerminal />
+        </div>
+
         {/* Scroll Indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2">
+        <div className="pt-4 animate-bounce">
           <button
             onClick={scrollToProjects}
-            className="p-2 rounded-full glass hover:bg-muted/40 transition-colors group"
+            className="p-2 rounded-full glass hover:bg-muted/40 transition-colors group cursor-pointer"
             aria-label="Scroll ke bawah"
           >
             <ArrowDown className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" />

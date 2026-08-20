@@ -4,6 +4,15 @@ import { GithubIcon, LinkedinIcon } from '@/components/ui/icons'
 export default function Footer() {
   const currentYear = new Date().getFullYear()
 
+  const links = [
+    { label: 'Beranda', id: 'hero' },
+    { label: 'Tentang', id: 'about' },
+    { label: 'Layanan', id: 'services' },
+    { label: 'Pengalaman', id: 'experience' },
+    { label: 'Proyek', id: 'projects' },
+    { label: 'Kontak', id: 'contact' },
+  ]
+
   return (
     <footer className="relative border-t border-border/30 bg-card/30 backdrop-blur-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -17,24 +26,23 @@ export default function Footer() {
               <span className="text-base font-bold gradient-text tracking-tight">Portfolio</span>
             </div>
             <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed max-w-xs">
-              Membangun solusi digital yang indah dan berdampak. Mari berkolaborasi untuk membuat sesuatu yang luar biasa.
+              Membangun solusi web modern berkinerja tinggi, berestetika bersih, dan fungsional. Mari berkolaborasi!
             </p>
           </div>
 
           {/* Quick Links */}
           <div className="space-y-3">
             <h4 className="font-semibold text-sm text-foreground">Navigasi</h4>
-            <div className="flex flex-col gap-2">
-              {['Beranda', 'Tentang', 'Proyek', 'Kontak'].map((link) => (
+            <div className="grid grid-cols-2 gap-2">
+              {links.map((link) => (
                 <button
-                  key={link}
+                  key={link.label}
                   onClick={() => {
-                    const id = link === 'Beranda' ? 'hero' : link === 'Tentang' ? 'about' : link === 'Proyek' ? 'projects' : 'contact'
-                    document.querySelector(`#${id}`)?.scrollIntoView({ behavior: 'smooth' })
+                    document.querySelector(`#${link.id}`)?.scrollIntoView({ behavior: 'smooth' })
                   }}
-                  className="text-xs sm:text-sm text-muted-foreground hover:text-foreground transition-colors text-left w-fit cursor-pointer"
+                  className="text-xs text-muted-foreground hover:text-primary transition-colors text-left w-fit cursor-pointer"
                 >
-                  {link}
+                  {link.label}
                 </button>
               ))}
             </div>
@@ -54,7 +62,7 @@ export default function Footer() {
                   href={social.href}
                   target={social.href.startsWith('mailto') ? undefined : '_blank'}
                   rel="noopener noreferrer"
-                  className="p-2.5 rounded-xl glass hover:bg-muted/40 transition-colors border border-border/40 text-muted-foreground hover:text-foreground"
+                  className="p-2.5 rounded-xl glass hover:bg-muted/40 transition-colors border border-border/40 text-muted-foreground hover:text-primary"
                   aria-label={social.label}
                 >
                   <social.icon className="h-4 w-4" />
@@ -66,9 +74,9 @@ export default function Footer() {
 
         {/* Bottom */}
         <div className="mt-10 pt-6 border-t border-border/20 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-muted-foreground">
-          <p>© {currentYear} Portfolio. All rights reserved.</p>
+          <p>© {currentYear} Muhammad Aulia Putra. All rights reserved.</p>
           <p className="flex items-center gap-1.5">
-            Dibuat dengan <Heart className="h-3 w-3 text-rose-400 fill-rose-400" /> menggunakan React & Supabase
+            Dibuat dengan <Heart className="h-3 w-3 text-rose-400 fill-rose-400" /> menggunakan React 19, TypeScript & Supabase
           </p>
         </div>
       </div>
