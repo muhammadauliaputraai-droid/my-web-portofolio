@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom'
 import { useAuth } from '@/contexts/AuthContext'
 import { Button } from '@/components/ui/button'
 import { Menu, X, Sparkles } from 'lucide-react'
+import ThemeToggle from '@/components/ui/theme-toggle'
 
 const navLinks = [
   { label: 'Beranda', href: '#hero' },
@@ -67,7 +68,10 @@ export default function Navbar() {
               {link.label}
             </button>
           ))}
-          <div className="ml-4">
+
+          {/* Theme Toggle & Auth Button */}
+          <div className="ml-3 flex items-center gap-2 pl-3 border-l border-border/40">
+            <ThemeToggle />
             <Button
               size="sm"
               className="gradient-bg text-white hover:opacity-90 shadow-sm rounded-lg text-xs font-semibold px-4"
@@ -78,14 +82,17 @@ export default function Navbar() {
           </div>
         </div>
 
-        {/* Mobile Menu Toggle */}
-        <button
-          className="md:hidden p-2 rounded-lg hover:bg-muted/30 transition-colors text-muted-foreground"
-          onClick={() => setMobileOpen(!mobileOpen)}
-          aria-label="Toggle menu"
-        >
-          {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-        </button>
+        {/* Mobile Actions */}
+        <div className="md:hidden flex items-center gap-2">
+          <ThemeToggle />
+          <button
+            className="p-2 rounded-lg hover:bg-muted/30 transition-colors text-muted-foreground"
+            onClick={() => setMobileOpen(!mobileOpen)}
+            aria-label="Toggle menu"
+          >
+            {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Menu */}
@@ -101,7 +108,7 @@ export default function Navbar() {
                 {link.label}
               </button>
             ))}
-            <div className="pt-2">
+            <div className="pt-3 border-t border-border/30">
               <Button
                 className="w-full gradient-bg text-white hover:opacity-90 rounded-lg text-xs font-semibold"
                 onClick={() => {

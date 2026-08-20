@@ -9,6 +9,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { ArrowLeft, Loader2, Mail, Lock, Sparkles } from 'lucide-react'
 import { GithubIcon } from '@/components/ui/icons'
 
+import ThemeToggle from '@/components/ui/theme-toggle'
+
 export default function LoginForm() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -57,21 +59,19 @@ export default function LoginForm() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center relative overflow-hidden py-12">
-      {/* Animated gradient background */}
-      <div className="absolute inset-0 gradient-bg-animated opacity-20" />
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/20 rounded-full blur-3xl animate-pulse-glow" />
-      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-accent/20 rounded-full blur-3xl animate-pulse-glow stagger-3" />
-
+    <div className="min-h-screen bg-background text-foreground flex items-center justify-center relative overflow-hidden py-12 transition-colors duration-300">
       <div className="relative z-10 w-full max-w-md px-4">
-        <Button
-          variant="ghost"
-          className="mb-6 gap-2 text-muted-foreground hover:text-foreground"
-          onClick={() => navigate('/')}
-        >
-          <ArrowLeft className="h-4 w-4" />
-          Kembali ke Beranda
-        </Button>
+        <div className="flex items-center justify-between mb-6">
+          <Button
+            variant="ghost"
+            className="gap-2 text-muted-foreground hover:text-foreground"
+            onClick={() => navigate('/')}
+          >
+            <ArrowLeft className="h-4 w-4" />
+            Kembali ke Beranda
+          </Button>
+          <ThemeToggle />
+        </div>
 
         <Card className="glass-strong border-border/50 shadow-2xl animate-scale-in">
           <CardHeader className="text-center pb-2">

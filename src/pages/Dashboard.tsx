@@ -9,6 +9,8 @@ import { Menu, Plus, RefreshCw, Sparkles, FolderGit2, ArrowRight } from 'lucide-
 import { supabase, type Project } from '@/lib/supabase'
 import ProjectForm from '@/components/dashboard/ProjectForm'
 
+import ThemeToggle from '@/components/ui/theme-toggle'
+
 export default function Dashboard() {
   const { user } = useAuth()
   const [activeTab, setActiveTab] = useState<'overview' | 'projects'>('overview')
@@ -44,7 +46,7 @@ export default function Dashboard() {
   const recentProjects = projects.slice(0, 4)
 
   return (
-    <div className="dark min-h-screen bg-background text-foreground flex">
+    <div className="min-h-screen bg-background text-foreground flex transition-colors duration-300">
       {/* Sidebar */}
       <Sidebar
         activeTab={activeTab}
@@ -73,6 +75,7 @@ export default function Dashboard() {
           </div>
 
           <div className="flex items-center gap-2 sm:gap-3">
+            <ThemeToggle />
             <Button
               variant="outline"
               size="sm"
