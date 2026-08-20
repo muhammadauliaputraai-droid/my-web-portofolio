@@ -7,12 +7,13 @@ import {
   FolderGit2,
   ExternalLink,
   LogOut,
+  Mail,
   X,
 } from 'lucide-react'
 
 type SidebarProps = {
-  activeTab: 'overview' | 'projects'
-  setActiveTab: (tab: 'overview' | 'projects') => void
+  activeTab: 'overview' | 'projects' | 'messages'
+  setActiveTab: (tab: 'overview' | 'projects' | 'messages') => void
   mobileOpen: boolean
   setMobileOpen: (open: boolean) => void
 }
@@ -105,6 +106,21 @@ export default function Sidebar({
             >
               <FolderGit2 className="h-4 w-4" />
               Manajemen Proyek
+            </button>
+
+            <button
+              onClick={() => {
+                setActiveTab('messages')
+                setMobileOpen(false)
+              }}
+              className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all ${
+                activeTab === 'messages'
+                  ? 'gradient-bg text-white shadow-md shadow-primary/20'
+                  : 'text-muted-foreground hover:text-foreground hover:bg-muted/40'
+              }`}
+            >
+              <Mail className="h-4 w-4" />
+              Pesan Masuk (Inbox)
             </button>
 
             <div className="pt-4 pb-1">

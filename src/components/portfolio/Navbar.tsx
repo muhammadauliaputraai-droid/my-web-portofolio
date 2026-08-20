@@ -81,16 +81,18 @@ export default function Navbar() {
             </button>
           ))}
 
-          {/* Theme Toggle & Auth Button */}
+          {/* Theme Toggle & Optional Session Workspace Button */}
           <div className="ml-2 flex items-center gap-2 pl-3 border-l border-border/40">
             <ThemeToggle />
-            <Button
-              size="sm"
-              className="gradient-bg text-white hover:opacity-90 shadow-sm rounded-lg text-xs font-semibold px-4"
-              onClick={() => navigate(session ? '/dashboard' : '/login')}
-            >
-              {session ? 'Workspace' : 'Masuk'}
-            </Button>
+            {session && (
+              <Button
+                size="sm"
+                className="gradient-bg text-white hover:opacity-90 shadow-sm rounded-lg text-xs font-semibold px-4"
+                onClick={() => navigate('/dashboard')}
+              >
+                Workspace
+              </Button>
+            )}
           </div>
         </div>
 
@@ -120,17 +122,19 @@ export default function Navbar() {
                 {link.label}
               </button>
             ))}
-            <div className="pt-3 border-t border-border/30">
-              <Button
-                className="w-full gradient-bg text-white hover:opacity-90 rounded-lg text-xs font-semibold"
-                onClick={() => {
-                  setMobileOpen(false)
-                  navigate(session ? '/dashboard' : '/login')
-                }}
-              >
-                {session ? 'Buka Workspace' : 'Masuk Admin'}
-              </Button>
-            </div>
+            {session && (
+              <div className="pt-3 border-t border-border/30">
+                <Button
+                  className="w-full gradient-bg text-white hover:opacity-90 rounded-lg text-xs font-semibold"
+                  onClick={() => {
+                    setMobileOpen(false)
+                    navigate('/dashboard')
+                  }}
+                >
+                  Buka Workspace
+                </Button>
+              </div>
+            )}
           </div>
         </div>
       )}

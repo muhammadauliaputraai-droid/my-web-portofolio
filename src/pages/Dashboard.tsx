@@ -3,6 +3,7 @@ import { useAuth } from '@/contexts/AuthContext'
 import Sidebar from '@/components/dashboard/Sidebar'
 import StatsCards from '@/components/dashboard/StatsCards'
 import ProjectsManager from '@/components/dashboard/ProjectsManager'
+import MessagesManager from '@/components/dashboard/MessagesManager'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { Menu, Plus, RefreshCw, LayoutDashboard, FolderGit2, ArrowRight } from 'lucide-react'
@@ -13,7 +14,7 @@ import ThemeToggle from '@/components/ui/theme-toggle'
 
 export default function Dashboard() {
   const { user } = useAuth()
-  const [activeTab, setActiveTab] = useState<'overview' | 'projects'>('overview')
+  const [activeTab, setActiveTab] = useState<'overview' | 'projects' | 'messages'>('overview')
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false)
   const [projects, setProjects] = useState<Project[]>([])
   const [loading, setLoading] = useState(true)
@@ -227,7 +228,7 @@ export default function Dashboard() {
                 </Card>
               )}
             </div>
-          ) : (
+          ) : activeTab === 'projects' ? (
             <div className="space-y-4">
               <div>
                 <h3 className="text-lg font-bold text-foreground">Daftar Semua Proyek</h3>
@@ -241,6 +242,8 @@ export default function Dashboard() {
                 onRefresh={fetchProjects}
               />
             </div>
+          ) : (
+            <MessagesManager />
           )}
         </main>
       </div>

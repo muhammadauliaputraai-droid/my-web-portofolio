@@ -99,8 +99,8 @@ export default function HeroSection() {
         <div className="flex justify-center gap-2.5 mb-12 animate-slide-up stagger-4">
           {[
             { href: 'https://github.com/muhammadauliaputraai-droid', icon: GithubIcon, label: 'GitHub' },
-            { href: 'https://linkedin.com', icon: LinkedinIcon, label: 'LinkedIn' },
-            { href: 'mailto:hello@example.com', icon: Mail, label: 'Email' },
+            { href: 'https://linkedin.com/in/muhammadauliaputra', icon: LinkedinIcon, label: 'LinkedIn' },
+            { href: 'mailto:muhammadauliaputra@gmail.com', icon: Mail, label: 'Email' },
           ].map((social) => (
             <a
               key={social.label}

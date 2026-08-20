@@ -62,8 +62,8 @@ export default function Footer() {
             <div className="flex gap-2.5">
               {[
                 { href: 'https://github.com/muhammadauliaputraai-droid', icon: GithubIcon, label: 'GitHub' },
-                { href: 'https://linkedin.com', icon: LinkedinIcon, label: 'LinkedIn' },
-                { href: 'mailto:hello@example.com', icon: Mail, label: 'Email' },
+                { href: 'https://linkedin.com/in/muhammadauliaputra', icon: LinkedinIcon, label: 'LinkedIn' },
+                { href: 'mailto:muhammadauliaputra@gmail.com', icon: Mail, label: 'Email' },
               ].map((social) => (
                 <a
                   key={social.label}

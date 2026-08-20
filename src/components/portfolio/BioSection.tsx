@@ -93,7 +93,7 @@ export default function BioSection() {
                   <GithubIcon className="h-4 w-4" />
                 </a>
                 <a
-                  href="https://linkedin.com"
+                  href="https://linkedin.com/in/muhammadauliaputra"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="p-2.5 rounded-xl glass hover:bg-muted/40 border border-border/40 text-muted-foreground hover:text-primary transition-colors"
@@ -103,7 +103,7 @@ export default function BioSection() {
                   <LinkedinIcon className="h-4 w-4" />
                 </a>
                 <a
-                  href="mailto:hello@example.com"
+                  href="mailto:muhammadauliaputra@gmail.com"
                   className="p-2.5 rounded-xl glass hover:bg-muted/40 border border-border/40 text-muted-foreground hover:text-primary transition-colors"
                   aria-label="Send Email"
                   title="Email"

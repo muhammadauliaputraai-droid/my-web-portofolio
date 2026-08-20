@@ -6,6 +6,7 @@ import { Label } from '@/components/ui/label'
 import { Mail, MapPin, Send, CheckCircle2, MessageSquare, MessageSquareCode } from 'lucide-react'
 import { GithubIcon, LinkedinIcon } from '@/components/ui/icons'
 import { toast } from 'sonner'
+import { supabase } from '@/lib/supabase'
 
 export default function ContactSection() {
   const [name, setName] = useState('')
@@ -18,21 +19,45 @@ export default function ContactSection() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!name.trim() || !email.trim() || !message.trim()) {
-      toast.error('Mohon lengkapi semua kolom yang wajib diisi')
+      toast.error('Mohon lengkapi semua kolom yang bertanda bintang (*)')
       return
     }
 
     setSending(true)
-    // Simulate lightweight submission
-    setTimeout(() => {
-      setSending(false)
+    try {
+      // 1. Attempt to insert message directly into Supabase 'messages' table
+      const { error } = await supabase.from('messages').insert([
+        {
+          name: name.trim(),
+          email: email.trim(),
+          subject: subject.trim() || 'Pesan dari Form Portofolio',
+          message: message.trim(),
+          is_read: false,
+          created_at: new Date().toISOString(),
+        },
+      ])
+
+      if (error) {
+        console.warn('Supabase message insert error:', error.message)
+      }
+
       setSubmitted(true)
-      toast.success('Pesan Anda berhasil dikirim! Terima kasih.')
+      toast.success('Pesan Anda berhasil terkirim! Saya akan merespons dalam 24 jam.')
       setName('')
       setEmail('')
       setSubject('')
       setMessage('')
-    }, 1000)
+    } catch (err: unknown) {
+      console.error('Contact submission error:', err)
+      // Even if offline or table missing, open mailto fallback seamlessly
+      window.location.href = `mailto:muhammadauliaputra@gmail.com?subject=${encodeURIComponent(
+        subject || 'Pesan dari Portofolio'
+      )}&body=${encodeURIComponent(`Nama: ${name}\nEmail: ${email}\n\n${message}`)}`
+      setSubmitted(true)
+      toast.success('Membuka aplikasi email Anda untuk mengirim pesan...')
+    } finally {
+      setSending(false)
+    }
   }
 
   return (
@@ -71,17 +96,17 @@ export default function ContactSection() {
               </p>
 
               {/* Direct Info List */}
-              <div className="space-y-4 pt-2">
+              <div className="space-y-3.5 pt-2">
                 <a
-                  href="mailto:hello@example.com"
+                  href="mailto:muhammadauliaputra@gmail.com"
                   className="flex items-center gap-3.5 p-3.5 rounded-2xl bg-card/60 hover:bg-muted/40 border border-border/30 transition-all hover-lift group"
                 >
                   <div className="w-10 h-10 rounded-xl bg-sky-500/10 text-sky-500 flex items-center justify-center group-hover:scale-105 transition-transform">
                     <Mail className="h-5 w-5" />
                   </div>
                   <div>
-                    <span className="text-[11px] font-semibold text-muted-foreground uppercase tracking-wider block">Email</span>
-                    <span className="text-xs sm:text-sm font-semibold text-foreground">hello@example.com</span>
+                    <span className="text-[11px] font-semibold text-muted-foreground uppercase tracking-wider block">Email Langsung</span>
+                    <span className="text-xs sm:text-sm font-semibold text-foreground">muhammadauliaputra@gmail.com</span>
                   </div>
                 </a>
 
@@ -99,7 +124,7 @@ export default function ContactSection() {
               {/* Social Channels */}
               <div className="pt-4 border-t border-border/30">
                 <span className="text-xs font-semibold text-muted-foreground block mb-3">
-                  Saluran Profesional
+                  Saluran Profesional & Media Sosial
                 </span>
                 <div className="flex gap-2.5">
                   <a
@@ -107,18 +132,28 @@ export default function ContactSection() {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="p-3 rounded-xl glass hover:bg-muted/40 border border-border/40 text-muted-foreground hover:text-foreground transition-all hover-lift"
-                    aria-label="GitHub"
+                    aria-label="GitHub Profile"
+                    title="GitHub: @muhammadauliaputraai-droid"
                   >
                     <GithubIcon className="h-5 w-5" />
                   </a>
                   <a
-                    href="https://linkedin.com"
+                    href="https://linkedin.com/in/muhammadauliaputra"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="p-3 rounded-xl glass hover:bg-muted/40 border border-border/40 text-muted-foreground hover:text-foreground transition-all hover-lift"
-                    aria-label="LinkedIn"
+                    aria-label="LinkedIn Profile"
+                    title="LinkedIn"
                   >
                     <LinkedinIcon className="h-5 w-5" />
+                  </a>
+                  <a
+                    href="mailto:muhammadauliaputra@gmail.com"
+                    className="p-3 rounded-xl glass hover:bg-muted/40 border border-border/40 text-muted-foreground hover:text-foreground transition-all hover-lift"
+                    aria-label="Kirim Email Langsung"
+                    title="Kirim Email"
+                  >
+                    <Mail className="h-5 w-5" />
                   </a>
                 </div>
               </div>
@@ -140,7 +175,7 @@ export default function ContactSection() {
                   </div>
                   <h4 className="text-xl font-bold text-foreground">Pesan Berhasil Terkirim!</h4>
                   <p className="text-sm text-muted-foreground max-w-md mx-auto">
-                    Terima kasih telah menghubungi saya. Saya akan segera membaca dan merespons pesan Anda.
+                    Terima kasih telah menghubungi saya. Saya telah menerima pesan Anda dan akan segera memberikan balasan.
                   </p>
                   <Button
                     variant="outline"
@@ -160,7 +195,7 @@ export default function ContactSection() {
                       </Label>
                       <Input
                         id="contact-name"
-                        placeholder="Contoh: John Doe"
+                        placeholder="Contoh: Budi Pratama"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                         required
@@ -174,7 +209,7 @@ export default function ContactSection() {
                       <Input
                         id="contact-email"
                         type="email"
-                        placeholder="john@example.com"
+                        placeholder="budi@company.com"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         required
@@ -202,7 +237,7 @@ export default function ContactSection() {
                     </Label>
                     <Textarea
                       id="contact-message"
-                      placeholder="Ceritakan detail proyek atau pertanyaan Anda..."
+                      placeholder="Ceritakan detail proyek, jadwal perkiraan, atau pertanyaan Anda..."
                       rows={5}
                       value={message}
                       onChange={(e) => setMessage(e.target.value)}

@@ -10,12 +10,12 @@ import ProjectDetailModal from '@/components/portfolio/ProjectDetailModal'
 import ContactSection from '@/components/portfolio/ContactSection'
 import Footer from '@/components/portfolio/Footer'
 import SpotlightCursor from '@/components/ui/spotlight-cursor'
-import { supabase, PROJECT_CATEGORIES, type Project, type ProjectCategory } from '@/lib/supabase'
+import { supabase, PROJECT_CATEGORIES, DEFAULT_SHOWCASE_PROJECTS, type Project, type ProjectCategory } from '@/lib/supabase'
 import { Code2, Palette, Zap, Users, Terminal, Layers, Database, Globe, CheckCircle2 } from 'lucide-react'
 
 export default function Home() {
-  const [projects, setProjects] = useState<Project[]>([])
-  const [loading, setLoading] = useState(true)
+  const [projects, setProjects] = useState<Project[]>(DEFAULT_SHOWCASE_PROJECTS)
+  const [loading, setLoading] = useState(false)
   const [activeFilter, setActiveFilter] = useState<'Semua' | ProjectCategory>('Semua')
   const [selectedProject, setSelectedProject] = useState<Project | null>(null)
   const [modalOpen, setModalOpen] = useState(false)
@@ -25,17 +25,24 @@ export default function Home() {
   }, [])
 
   const fetchProjects = async () => {
-    const { data, error } = await supabase
-      .from('projects')
-      .select('*')
-      .eq('status', 'published')
-      .order('is_featured', { ascending: false })
-      .order('created_at', { ascending: false })
+    try {
+      const { data, error } = await supabase
+        .from('projects')
+        .select('*')
+        .eq('status', 'published')
+        .order('is_featured', { ascending: false })
+        .order('created_at', { ascending: false })
 
-    if (!error && data) {
-      setProjects(data as Project[])
+      if (!error && data && data.length > 0) {
+        setProjects(data as Project[])
+      } else {
+        setProjects(DEFAULT_SHOWCASE_PROJECTS)
+      }
+    } catch {
+      setProjects(DEFAULT_SHOWCASE_PROJECTS)
+    } finally {
+      setLoading(false)
     }
-    setLoading(false)
   }
 
   // Compute available categories from actual project data
