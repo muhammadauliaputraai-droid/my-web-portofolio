@@ -6,7 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { ArrowLeft, Loader2, Mail, Lock, Sparkles } from 'lucide-react'
+import { ArrowLeft, Loader2, Mail, Lock } from 'lucide-react'
 import { GithubIcon } from '@/components/ui/icons'
 
 import ThemeToggle from '@/components/ui/theme-toggle'
@@ -76,7 +76,7 @@ export default function LoginForm() {
         <Card className="glass-strong border-border/50 shadow-2xl animate-scale-in">
           <CardHeader className="text-center pb-2">
             <div className="mx-auto mb-4 w-14 h-14 rounded-2xl gradient-bg flex items-center justify-center shadow-lg glow">
-              <Sparkles className="h-7 w-7 text-white" />
+              <span className="text-xl font-black text-white tracking-wider">AP</span>
             </div>
             <CardTitle className="text-2xl font-bold gradient-text">Selamat Datang</CardTitle>
             <CardDescription className="text-muted-foreground">

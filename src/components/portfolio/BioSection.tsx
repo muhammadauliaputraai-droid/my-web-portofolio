@@ -1,4 +1,4 @@
-import { User, MapPin, Mail, Globe, Sparkles, CheckCircle2, Briefcase, GraduationCap, Code2 } from 'lucide-react'
+import { User, MapPin, Mail, Globe, BadgeCheck, CheckCircle2, Briefcase, GraduationCap, Code2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { GithubIcon, LinkedinIcon } from '@/components/ui/icons'
 
@@ -119,7 +119,7 @@ export default function BioSection() {
             {/* Structured Info Card */}
             <div className="p-7 sm:p-8 rounded-3xl glass border border-border/40 shadow-sm space-y-6">
               <div className="flex items-center gap-2">
-                <Sparkles className="h-5 w-5 text-primary" />
+                <BadgeCheck className="h-5 w-5 text-primary" />
                 <h3 className="text-lg font-bold text-foreground">Informasi Biodata</h3>
               </div>
 

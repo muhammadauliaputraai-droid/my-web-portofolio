@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Copy, Check, Terminal, FileCode, Sparkles } from 'lucide-react'
+import { Copy, Check, Terminal, FileCode, Braces } from 'lucide-react'
 
 export default function CodeTerminal() {
   const [copied, setCopied] = useState(false)
@@ -77,7 +77,7 @@ curl -X POST "https://api.portfolio.dev/collaborate" \\
                 : 'text-muted-foreground hover:text-foreground'
             }`}
           >
-            <Sparkles className="h-3 w-3" />
+            <Braces className="h-3 w-3" />
             <span>Skills.json</span>
           </button>
           <button

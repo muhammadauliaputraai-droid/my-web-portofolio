@@ -5,7 +5,7 @@ import StatsCards from '@/components/dashboard/StatsCards'
 import ProjectsManager from '@/components/dashboard/ProjectsManager'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
-import { Menu, Plus, RefreshCw, Sparkles, FolderGit2, ArrowRight } from 'lucide-react'
+import { Menu, Plus, RefreshCw, LayoutDashboard, FolderGit2, ArrowRight } from 'lucide-react'
 import { supabase, type Project } from '@/lib/supabase'
 import ProjectForm from '@/components/dashboard/ProjectForm'
 
@@ -103,8 +103,8 @@ export default function Dashboard() {
           <div className="relative overflow-hidden rounded-3xl p-6 sm:p-8 gradient-bg-animated border border-primary/20 shadow-xl">
             <div className="relative z-10 max-w-xl text-white">
               <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-xs font-semibold mb-3">
-                <Sparkles className="h-3.5 w-3.5" />
-                <span>Panel Kontrol Portofolio</span>
+                <LayoutDashboard className="h-3.5 w-3.5" />
+                <span>Panel Kontrol Workspace</span>
               </div>
               <h1 className="text-2xl sm:text-3xl font-extrabold mb-2 tracking-tight">
                 Halo, {user?.email?.split('@')[0] ?? 'Admin'}! 👋

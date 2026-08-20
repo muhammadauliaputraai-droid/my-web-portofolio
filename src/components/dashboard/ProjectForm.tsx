@@ -8,7 +8,7 @@ import { Switch } from '@/components/ui/switch'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Badge } from '@/components/ui/badge'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { Loader2, Plus, Sparkles, X, UploadCloud, Image as ImageIcon, Link as LinkIcon, Trash2 } from 'lucide-react'
+import { Loader2, Plus, FolderGit2, X, UploadCloud, Image as ImageIcon, Link as LinkIcon, Trash2 } from 'lucide-react'
 import { supabase, PROJECT_CATEGORIES, type Project, type ProjectCategory } from '@/lib/supabase'
 import { useAuth } from '@/contexts/AuthContext'
 import { toast } from 'sonner'
@@ -216,7 +216,7 @@ export default function ProjectForm({
         <DialogHeader>
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-lg gradient-bg flex items-center justify-center">
-              <Sparkles className="h-4 w-4 text-white" />
+              <FolderGit2 className="h-4 w-4 text-white" />
             </div>
             <DialogTitle className="text-xl font-bold">
               {projectToEdit ? 'Edit Proyek' : 'Tambah Proyek Baru'}

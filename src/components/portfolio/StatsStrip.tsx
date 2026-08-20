@@ -1,4 +1,4 @@
-import { Code2, FolderCheck, Sparkles, Trophy } from 'lucide-react'
+import { Code2, FolderCheck, Zap, Trophy } from 'lucide-react'
 
 export default function StatsStrip() {
   const stats = [
@@ -21,7 +21,7 @@ export default function StatsStrip() {
       subtext: 'Mobile, Tablet & Desktop',
     },
     {
-      icon: Sparkles,
+      icon: Zap,
       value: 'Fast',
       label: 'Performa Optimal',
       subtext: 'Lightweight & SEO-ready',

@@ -1,4 +1,4 @@
-import { Layout, Server, Sparkles, Smartphone, ArrowUpRight } from 'lucide-react'
+import { Layout, Server, Palette, Smartphone, ArrowUpRight } from 'lucide-react'
 
 export default function ServicesSection() {
   const services = [
@@ -21,7 +21,7 @@ export default function ServicesSection() {
       accentColor: 'text-indigo-500 dark:text-indigo-400',
     },
     {
-      icon: Sparkles,
+      icon: Palette,
       title: 'UI/UX Design & Prototyping',
       description:
         'Mentransformasikan konsep desain menjadi antarmuka interaktif yang memukau dengan micro-interactions yang halus.',

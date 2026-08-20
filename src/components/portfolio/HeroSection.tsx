@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button'
-import { ArrowDown, Mail, Sparkles, Code2, Layers } from 'lucide-react'
+import { ArrowDown, Mail, Rocket, Code2, Layers } from 'lucide-react'
 import { GithubIcon, LinkedinIcon } from '@/components/ui/icons'
 import CodeTerminal from '@/components/portfolio/CodeTerminal'
 
@@ -25,7 +25,7 @@ export default function HeroSection() {
 
         {/* Subtle dot pattern */}
         <div
-          className="absolute inset-0 opacity-[0.035]"
+          className="absolute inset-0 opacity-[0.05]"
           style={{
             backgroundImage: 'radial-gradient(circle, hsl(var(--foreground)) 1px, transparent 1px)',
             backgroundSize: '32px 32px',
@@ -81,7 +81,7 @@ export default function HeroSection() {
             className="btn-shimmer gradient-bg text-white hover:opacity-95 shadow-md hover:shadow-xl hover:shadow-primary/25 transition-all duration-300 px-8 py-5 text-sm font-bold rounded-xl glow group active:scale-95"
             onClick={scrollToProjects}
           >
-            <Sparkles className="mr-2 h-4 w-4 text-white group-hover:rotate-45 group-hover:scale-125 transition-transform duration-300" />
+            <Rocket className="mr-2 h-4 w-4 text-white group-hover:scale-125 group-hover:-translate-y-0.5 transition-transform duration-300" />
             <span>Jelajahi Karya Saya</span>
           </Button>
           <Button

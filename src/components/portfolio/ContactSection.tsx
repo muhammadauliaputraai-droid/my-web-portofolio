@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
-import { Send, Mail, MapPin, CheckCircle2, MessageSquare, Sparkles } from 'lucide-react'
+import { Mail, MapPin, Send, CheckCircle2, MessageSquare, MessageSquareCode } from 'lucide-react'
 import { GithubIcon, LinkedinIcon } from '@/components/ui/icons'
 import { toast } from 'sonner'
 
@@ -57,7 +57,7 @@ export default function ContactSection() {
             <div className="p-7 sm:p-8 rounded-3xl glass border border-border/40 space-y-6">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-xl gradient-bg flex items-center justify-center text-white shadow-md">
-                  <Sparkles className="h-5 w-5" />
+                  <MessageSquareCode className="h-5 w-5" />
                 </div>
                 <div>
                   <h3 className="font-bold text-lg text-foreground">Terbuka untuk Peluang Baru</h3>
