@@ -12,7 +12,7 @@ type ProjectCardProps = {
 export default function ProjectCard({ project, onClick }: ProjectCardProps) {
   return (
     <Card
-      className="group relative overflow-hidden rounded-3xl border-border/20 bg-card/30 backdrop-blur-sm hover-lift transition-all duration-500 hover:border-primary/20 gradient-border cursor-pointer"
+      className="group relative overflow-hidden rounded-2xl border-border/40 bg-card/40 backdrop-blur-sm hover-lift transition-all duration-200 cursor-pointer"
       onClick={onClick}
     >
       {/* Image */}
@@ -21,25 +21,26 @@ export default function ProjectCard({ project, onClick }: ProjectCardProps) {
           <img
             src={project.image_url}
             alt={project.title}
-            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
           />
         ) : (
-          <div className="w-full h-full gradient-bg-animated opacity-20 flex items-center justify-center">
-            <span className="text-5xl font-black text-white/20">{project.title.charAt(0)}</span>
+          <div className="w-full h-full bg-muted/30 flex items-center justify-center">
+            <span className="text-4xl font-bold text-muted-foreground/30">{project.title.charAt(0)}</span>
           </div>
         )}
+
         {/* Hover overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-end p-5">
-          <div className="flex gap-2.5 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+        <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-end p-4">
+          <div className="flex gap-2">
             {project.live_url && (
               <a
                 href={project.live_url}
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={(e) => e.stopPropagation()}
-                className="px-4 py-2 rounded-xl bg-white/15 backdrop-blur-md hover:bg-white/25 transition-all text-white text-xs font-semibold flex items-center gap-1.5 border border-white/10"
+                className="px-3 py-1.5 rounded-lg bg-white/20 hover:bg-white/30 backdrop-blur-md transition-all text-white text-xs font-semibold flex items-center gap-1.5"
               >
-                <ExternalLink className="h-3.5 w-3.5" />
+                <ExternalLink className="h-3 w-3" />
                 Demo
               </a>
             )}
@@ -49,35 +50,36 @@ export default function ProjectCard({ project, onClick }: ProjectCardProps) {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={(e) => e.stopPropagation()}
-                className="px-4 py-2 rounded-xl bg-white/15 backdrop-blur-md hover:bg-white/25 transition-all text-white text-xs font-semibold flex items-center gap-1.5 border border-white/10"
+                className="px-3 py-1.5 rounded-lg bg-white/20 hover:bg-white/30 backdrop-blur-md transition-all text-white text-xs font-semibold flex items-center gap-1.5"
               >
-                <GithubIcon className="h-3.5 w-3.5" />
+                <GithubIcon className="h-3 w-3" />
                 Code
               </a>
             )}
           </div>
         </div>
+
         {/* Badges */}
-        <div className="absolute top-4 left-4 flex gap-2">
+        <div className="absolute top-3 left-3 flex gap-1.5">
           {project.is_featured && (
-            <Badge className="gradient-bg-animated text-white border-0 shadow-xl text-[10px] font-bold px-3 py-1 rounded-full">
+            <Badge className="gradient-bg text-white border-0 text-[10px] font-semibold px-2.5 py-0.5 rounded-md">
               ★ Featured
             </Badge>
           )}
           {project.category && (
-            <Badge variant="secondary" className="glass text-foreground/80 text-[10px] font-bold px-2.5 py-0.5 rounded-full border-0">
+            <Badge variant="secondary" className="glass text-foreground/90 text-[10px] font-semibold px-2 py-0.5 rounded-md border border-border/40">
               {project.category}
             </Badge>
           )}
         </div>
       </div>
 
-      <CardContent className="p-6">
-        <h3 className="text-lg font-bold mb-2.5 group-hover:gradient-text transition-all duration-300">
+      <CardContent className="p-5">
+        <h3 className="text-base font-bold mb-2 group-hover:text-primary transition-colors">
           {project.title}
         </h3>
         {project.description && (
-          <p className="text-sm text-muted-foreground leading-relaxed mb-4 line-clamp-2">
+          <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed mb-3.5 line-clamp-2">
             {project.description}
           </p>
         )}
@@ -86,13 +88,13 @@ export default function ProjectCard({ project, onClick }: ProjectCardProps) {
             <Badge
               key={tech}
               variant="secondary"
-              className="text-[11px] font-medium bg-muted/30 border border-border/30 hover:bg-muted/50 transition-colors px-2.5 py-0.5 rounded-lg"
+              className="text-[11px] font-medium bg-muted/40 border border-border/30 px-2 py-0.5 rounded-md"
             >
               {tech}
             </Badge>
           ))}
           {(project.tech_stack?.length || 0) > 4 && (
-            <Badge variant="secondary" className="text-[11px] font-medium bg-muted/30 border border-border/30 px-2.5 py-0.5 rounded-lg">
+            <Badge variant="secondary" className="text-[11px] font-medium bg-muted/40 border border-border/30 px-2 py-0.5 rounded-md">
               +{(project.tech_stack?.length || 0) - 4}
             </Badge>
           )}

@@ -19,7 +19,7 @@ export default function Navbar() {
   const location = useLocation()
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50)
+    const handleScroll = () => setScrolled(window.scrollY > 30)
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
@@ -38,9 +38,9 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? 'glass-strong shadow-xl py-3'
+          ? 'glass-strong shadow-md py-3'
           : 'bg-transparent py-5'
       }`}
     >
@@ -48,30 +48,29 @@ export default function Navbar() {
         {/* Logo */}
         <button
           onClick={() => handleNavClick('#hero')}
-          className="flex items-center gap-2.5 group"
+          className="flex items-center gap-2.5 group cursor-pointer"
         >
-          <div className="w-10 h-10 rounded-xl gradient-bg-animated flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-105 glow">
-            <Sparkles className="h-5 w-5 text-white" />
+          <div className="w-9 h-9 rounded-xl gradient-bg flex items-center justify-center shadow-sm group-hover:opacity-90 transition-opacity">
+            <Sparkles className="h-4 w-4 text-white" />
           </div>
-          <span className="text-lg font-bold gradient-text hidden sm:block tracking-tight">Portfolio</span>
+          <span className="text-base font-bold gradient-text hidden sm:block tracking-tight">Portfolio</span>
         </button>
 
         {/* Desktop Nav */}
-        <div className="hidden md:flex items-center gap-0.5">
+        <div className="hidden md:flex items-center gap-1">
           {navLinks.map((link) => (
             <button
               key={link.href}
               onClick={() => handleNavClick(link.href)}
-              className="relative px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground rounded-xl hover:bg-muted/20 transition-all duration-300 group"
+              className="px-3.5 py-1.5 text-xs font-semibold text-muted-foreground hover:text-foreground rounded-lg hover:bg-muted/40 transition-colors cursor-pointer"
             >
               {link.label}
-              <span className="absolute bottom-1 left-1/2 -translate-x-1/2 w-0 h-[2px] gradient-bg rounded-full group-hover:w-4/5 transition-all duration-300" />
             </button>
           ))}
-          <div className="ml-5">
+          <div className="ml-4">
             <Button
               size="sm"
-              className="gradient-bg-animated text-white hover:opacity-90 shadow-lg hover:shadow-xl transition-all duration-300 rounded-xl font-semibold glow"
+              className="gradient-bg text-white hover:opacity-90 shadow-sm rounded-lg text-xs font-semibold px-4"
               onClick={() => navigate(session ? '/dashboard' : '/login')}
             >
               {session ? 'Dashboard' : 'Masuk'}
@@ -81,7 +80,7 @@ export default function Navbar() {
 
         {/* Mobile Menu Toggle */}
         <button
-          className="md:hidden p-2.5 rounded-xl hover:bg-muted/20 transition-colors text-muted-foreground"
+          className="md:hidden p-2 rounded-lg hover:bg-muted/30 transition-colors text-muted-foreground"
           onClick={() => setMobileOpen(!mobileOpen)}
           aria-label="Toggle menu"
         >
@@ -91,20 +90,20 @@ export default function Navbar() {
 
       {/* Mobile Menu */}
       {mobileOpen && (
-        <div className="md:hidden glass-strong border-t border-border/20 animate-slide-down">
-          <div className="px-4 py-5 space-y-1">
+        <div className="md:hidden glass-strong border-t border-border/30 animate-slide-down">
+          <div className="px-4 py-4 space-y-1">
             {navLinks.map((link) => (
               <button
                 key={link.href}
                 onClick={() => handleNavClick(link.href)}
-                className="block w-full text-left px-4 py-3 text-sm font-medium text-muted-foreground hover:text-foreground rounded-xl hover:bg-muted/20 transition-all"
+                className="block w-full text-left px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground rounded-lg hover:bg-muted/30 transition-colors"
               >
                 {link.label}
               </button>
             ))}
-            <div className="pt-3">
+            <div className="pt-2">
               <Button
-                className="w-full gradient-bg-animated text-white hover:opacity-90 rounded-xl font-semibold glow"
+                className="w-full gradient-bg text-white hover:opacity-90 rounded-lg text-xs font-semibold"
                 onClick={() => {
                   setMobileOpen(false)
                   navigate(session ? '/dashboard' : '/login')
