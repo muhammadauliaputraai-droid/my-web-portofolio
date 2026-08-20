@@ -159,26 +159,26 @@ export default function BioSection() {
                 </div>
               </div>
 
-              {/* Action Buttons */}
+              {/* Action Buttons with micro-interactions */}
               <div className="flex flex-wrap gap-3 pt-4 border-t border-border/30">
                 <Button
                   onClick={() => {
                     document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })
                   }}
-                  className="gradient-bg text-white hover:opacity-90 font-semibold rounded-xl text-xs sm:text-sm gap-2 glow"
+                  className="btn-shimmer gradient-bg text-white hover:opacity-95 font-bold rounded-xl text-xs sm:text-sm gap-2 glow group shadow-md hover:shadow-lg transition-all duration-200 active:scale-95"
                 >
-                  <Mail className="h-4 w-4" />
-                  Hubungi Muhammad
+                  <Mail className="h-4 w-4 group-hover:scale-125 group-hover:-rotate-12 transition-transform duration-300" />
+                  <span>Hubungi Muhammad</span>
                 </Button>
                 <Button
                   variant="outline"
                   onClick={() => {
                     document.querySelector('#projects')?.scrollIntoView({ behavior: 'smooth' })
                   }}
-                  className="border-border/60 hover:bg-muted/40 font-semibold rounded-xl text-xs sm:text-sm gap-2 gradient-border"
+                  className="border-border/60 hover:bg-muted/40 font-bold rounded-xl text-xs sm:text-sm gap-2 gradient-border group hover:border-primary/40 transition-all duration-200 active:scale-95"
                 >
-                  <Code2 className="h-4 w-4" />
-                  Lihat Hasil Karya
+                  <Code2 className="h-4 w-4 group-hover:rotate-12 transition-transform duration-300" />
+                  <span>Lihat Hasil Karya</span>
                 </Button>
               </div>
             </div>

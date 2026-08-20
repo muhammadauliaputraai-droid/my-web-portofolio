@@ -214,7 +214,7 @@ export default function ContactSection() {
                   <Button
                     type="submit"
                     disabled={sending}
-                    className="w-full gradient-bg text-white hover:opacity-90 font-semibold shadow-md rounded-xl h-11 text-sm gap-2 glow"
+                    className="btn-shimmer w-full gradient-bg text-white hover:opacity-95 font-bold shadow-md hover:shadow-xl hover:shadow-primary/25 rounded-xl h-11 text-sm gap-2 glow group active:scale-[0.98] transition-all duration-200"
                   >
                     {sending ? (
                       <>
@@ -223,7 +223,7 @@ export default function ContactSection() {
                       </>
                     ) : (
                       <>
-                        <Send className="h-4 w-4" />
+                        <Send className="h-4 w-4 text-white group-hover:translate-x-1 group-hover:-translate-y-0.5 transition-transform duration-300" />
                         <span>Kirim Pesan Sekarang</span>
                       </>
                     )}

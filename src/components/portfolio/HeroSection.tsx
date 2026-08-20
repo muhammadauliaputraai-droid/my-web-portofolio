@@ -74,23 +74,24 @@ export default function HeroSection() {
           arsitektur modular, dan desain antarmuka yang intuitif.
         </p>
 
-        {/* CTA Buttons */}
+        {/* CTA Buttons with rich micro-interactions */}
         <div className="flex flex-wrap justify-center gap-3.5 mb-10 animate-slide-up stagger-3">
           <Button
             size="lg"
-            className="gradient-bg text-white hover:opacity-90 shadow-md hover:shadow-lg transition-all duration-300 px-8 py-5 text-sm font-semibold rounded-xl glow"
+            className="btn-shimmer gradient-bg text-white hover:opacity-95 shadow-md hover:shadow-xl hover:shadow-primary/25 transition-all duration-300 px-8 py-5 text-sm font-bold rounded-xl glow group active:scale-95"
             onClick={scrollToProjects}
           >
-            <Sparkles className="mr-2 h-4 w-4" />
-            Lihat Karya Saya
+            <Sparkles className="mr-2 h-4 w-4 text-white group-hover:rotate-45 group-hover:scale-125 transition-transform duration-300" />
+            <span>Jelajahi Karya Saya</span>
           </Button>
           <Button
             size="lg"
             variant="outline"
-            className="border-border/60 hover:bg-muted/40 px-8 py-5 text-sm font-semibold backdrop-blur-sm rounded-xl gradient-border"
+            className="border-border/60 hover:bg-muted/40 px-8 py-5 text-sm font-bold backdrop-blur-sm rounded-xl gradient-border group hover:border-primary/50 transition-all duration-300 active:scale-95"
             onClick={scrollToContact}
           >
-            Hubungi Saya
+            <Mail className="mr-2 h-4 w-4 text-muted-foreground group-hover:text-primary group-hover:scale-110 transition-all duration-300" />
+            <span>Hubungi Saya</span>
           </Button>
         </div>
 

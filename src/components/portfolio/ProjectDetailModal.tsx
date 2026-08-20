@@ -119,17 +119,17 @@ export default function ProjectDetailModal({ project, open, onOpenChange }: Proj
             </div>
           )}
 
-          {/* Action Buttons */}
+          {/* Action Buttons with micro-interactions */}
           {(project.live_url || project.github_url) && (
             <div className="flex flex-wrap gap-3 pt-2">
               {project.live_url && (
                 <Button
                   asChild
-                  className="gradient-bg-animated text-white hover:opacity-90 shadow-lg rounded-xl font-semibold gap-2 glow"
+                  className="btn-shimmer gradient-bg text-white hover:opacity-95 shadow-md hover:shadow-xl rounded-xl font-bold gap-2 glow group active:scale-95 transition-all duration-200"
                 >
                   <a href={project.live_url} target="_blank" rel="noopener noreferrer">
-                    <ExternalLink className="h-4 w-4" />
-                    Buka Live Demo
+                    <ExternalLink className="h-4 w-4 group-hover:scale-125 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300" />
+                    <span>Buka Live Demo</span>
                   </a>
                 </Button>
               )}
@@ -137,11 +137,11 @@ export default function ProjectDetailModal({ project, open, onOpenChange }: Proj
                 <Button
                   variant="outline"
                   asChild
-                  className="border-border/30 hover:bg-muted/20 rounded-xl font-semibold gap-2 gradient-border"
+                  className="border-border/60 hover:bg-muted/40 rounded-xl font-bold gap-2 gradient-border group hover:border-primary/50 active:scale-95 transition-all duration-200"
                 >
                   <a href={project.github_url} target="_blank" rel="noopener noreferrer">
-                    <GithubIcon className="h-4 w-4" />
-                    Lihat Source Code
+                    <GithubIcon className="h-4 w-4 group-hover:rotate-12 transition-transform duration-300" />
+                    <span>Lihat Source Code</span>
                   </a>
                 </Button>
               )}
