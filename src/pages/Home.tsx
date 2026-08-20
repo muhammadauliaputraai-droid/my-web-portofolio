@@ -1,14 +1,18 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useMemo } from 'react'
 import Navbar from '@/components/portfolio/Navbar'
 import HeroSection from '@/components/portfolio/HeroSection'
 import ProjectCard from '@/components/portfolio/ProjectCard'
+import ProjectDetailModal from '@/components/portfolio/ProjectDetailModal'
 import Footer from '@/components/portfolio/Footer'
-import { supabase, type Project } from '@/lib/supabase'
+import { supabase, PROJECT_CATEGORIES, type Project, type ProjectCategory } from '@/lib/supabase'
 import { Code2, Palette, Zap, Users, Terminal, Layers, Database, Globe } from 'lucide-react'
 
 export default function Home() {
   const [projects, setProjects] = useState<Project[]>([])
   const [loading, setLoading] = useState(true)
+  const [activeFilter, setActiveFilter] = useState<'Semua' | ProjectCategory>('Semua')
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null)
+  const [modalOpen, setModalOpen] = useState(false)
 
   useEffect(() => {
     fetchProjects()
@@ -26,6 +30,26 @@ export default function Home() {
       setProjects(data as Project[])
     }
     setLoading(false)
+  }
+
+  // Compute available categories from actual project data
+  const availableCategories = useMemo(() => {
+    const cats = new Set<string>()
+    projects.forEach((p) => {
+      if (p.category) cats.add(p.category)
+    })
+    return PROJECT_CATEGORIES.filter((c) => cats.has(c))
+  }, [projects])
+
+  // Filter projects based on active filter
+  const filteredProjects = useMemo(() => {
+    if (activeFilter === 'Semua') return projects
+    return projects.filter((p) => p.category === activeFilter)
+  }, [projects, activeFilter])
+
+  const handleProjectClick = (project: Project) => {
+    setSelectedProject(project)
+    setModalOpen(true)
   }
 
   const skills = [
@@ -84,7 +108,6 @@ export default function Home() {
 
       {/* === About Section === */}
       <section id="about" className="py-28 relative">
-        {/* Background accents */}
         <div className="absolute top-0 left-0 right-0 section-divider" />
         <div className="absolute top-1/2 right-0 w-[400px] h-[400px] rounded-full bg-blue-500/5 blur-[120px] -translate-y-1/2" />
         <div className="absolute top-1/2 left-0 w-[300px] h-[300px] rounded-full bg-red-400/5 blur-[100px] -translate-y-1/2" />
@@ -109,9 +132,7 @@ export default function Home() {
                 key={item.title}
                 className={`group relative p-7 rounded-3xl border border-border/20 bg-card/30 backdrop-blur-sm hover-lift transition-all duration-500 hover:border-primary/20 animate-slide-up stagger-${index + 1} overflow-hidden gradient-border`}
               >
-                {/* Card glow on hover */}
                 <div className={`absolute inset-0 bg-gradient-to-br ${item.gradient} opacity-0 group-hover:opacity-[0.04] transition-opacity duration-500 rounded-3xl`} />
-
                 <div className={`relative w-14 h-14 rounded-2xl bg-gradient-to-br ${item.gradient} flex items-center justify-center mb-5 shadow-lg group-hover:shadow-xl transition-shadow duration-300 group-hover:scale-105`}>
                   <item.icon className="h-7 w-7 text-white" />
                 </div>
@@ -131,7 +152,7 @@ export default function Home() {
         <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full bg-purple-500/5 blur-[150px]" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center mb-20 animate-fade-in">
+          <div className="text-center mb-12 animate-fade-in">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass text-xs font-semibold text-muted-foreground uppercase tracking-widest mb-6 gradient-border">
               Portfolio
             </div>
@@ -143,6 +164,50 @@ export default function Home() {
               kesempatan untuk belajar dan bertumbuh.
             </p>
           </div>
+
+          {/* === Category Filter Tabs === */}
+          {!loading && projects.length > 0 && availableCategories.length > 0 && (
+            <div className="flex justify-center mb-14 animate-slide-up stagger-1">
+              <div className="inline-flex flex-wrap justify-center gap-2 p-1.5 rounded-2xl glass-strong">
+                <button
+                  onClick={() => setActiveFilter('Semua')}
+                  className={`px-5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 ${
+                    activeFilter === 'Semua'
+                      ? 'gradient-bg-animated text-white shadow-lg glow'
+                      : 'text-muted-foreground hover:text-foreground hover:bg-muted/20'
+                  }`}
+                >
+                  Semua
+                  <span className={`ml-2 text-xs px-1.5 py-0.5 rounded-md ${
+                    activeFilter === 'Semua' ? 'bg-white/20' : 'bg-muted/40'
+                  }`}>
+                    {projects.length}
+                  </span>
+                </button>
+                {availableCategories.map((cat) => {
+                  const count = projects.filter((p) => p.category === cat).length
+                  return (
+                    <button
+                      key={cat}
+                      onClick={() => setActiveFilter(cat)}
+                      className={`px-5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 ${
+                        activeFilter === cat
+                          ? 'gradient-bg-animated text-white shadow-lg glow'
+                          : 'text-muted-foreground hover:text-foreground hover:bg-muted/20'
+                      }`}
+                    >
+                      {cat}
+                      <span className={`ml-2 text-xs px-1.5 py-0.5 rounded-md ${
+                        activeFilter === cat ? 'bg-white/20' : 'bg-muted/40'
+                      }`}>
+                        {count}
+                      </span>
+                    </button>
+                  )
+                })}
+              </div>
+            </div>
+          )}
 
           {loading ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -160,13 +225,35 @@ export default function Home() {
                 </div>
               ))}
             </div>
-          ) : projects.length > 0 ? (
+          ) : filteredProjects.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {projects.map((project, index) => (
+              {filteredProjects.map((project, index) => (
                 <div key={project.id} className={`animate-slide-up stagger-${Math.min(index + 1, 6)}`}>
-                  <ProjectCard project={project} />
+                  <ProjectCard
+                    project={project}
+                    onClick={() => handleProjectClick(project)}
+                  />
                 </div>
               ))}
+            </div>
+          ) : projects.length > 0 && activeFilter !== 'Semua' ? (
+            /* No projects matching filter */
+            <div className="text-center py-20">
+              <div className="w-20 h-20 rounded-3xl bg-muted/20 mx-auto mb-6 flex items-center justify-center">
+                <Code2 className="h-10 w-10 text-muted-foreground/40" />
+              </div>
+              <h3 className="text-xl font-bold mb-3 text-muted-foreground">
+                Tidak ada proyek "{activeFilter}"
+              </h3>
+              <p className="text-muted-foreground/70 mb-6">
+                Belum ada proyek dengan kategori ini.
+              </p>
+              <button
+                onClick={() => setActiveFilter('Semua')}
+                className="text-sm font-semibold gradient-text hover:opacity-80 transition-opacity"
+              >
+                ← Lihat Semua Proyek
+              </button>
             </div>
           ) : (
             <div className="text-center py-24">
@@ -249,7 +336,6 @@ export default function Home() {
                 className="group relative p-8 rounded-3xl border border-border/20 bg-card/20 backdrop-blur-sm hover-lift transition-all duration-500 hover:border-primary/20 overflow-hidden gradient-border"
               >
                 <div className={`absolute inset-0 bg-gradient-to-br ${contact.gradient} opacity-0 group-hover:opacity-[0.05] transition-opacity duration-500`} />
-
                 <div className={`relative w-14 h-14 rounded-2xl bg-gradient-to-br ${contact.gradient} flex items-center justify-center mx-auto mb-4 text-white shadow-lg group-hover:scale-105 transition-transform duration-300`}>
                   {contact.icon}
                 </div>
@@ -262,6 +348,13 @@ export default function Home() {
       </section>
 
       <Footer />
+
+      {/* === Project Detail Modal === */}
+      <ProjectDetailModal
+        project={selectedProject}
+        open={modalOpen}
+        onOpenChange={setModalOpen}
+      />
     </div>
   )
 }

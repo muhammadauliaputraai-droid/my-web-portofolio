@@ -12,6 +12,18 @@ export const supabase = createClient(
   supabaseAnonKey || 'placeholder-key'
 )
 
+export const PROJECT_CATEGORIES = [
+  'Web App',
+  'Mobile',
+  'UI/UX',
+  'Fullstack',
+  'Backend',
+  'Open Source',
+  'Lainnya',
+] as const
+
+export type ProjectCategory = (typeof PROJECT_CATEGORIES)[number]
+
 export type Project = {
   id: string
   user_id: string
@@ -23,6 +35,7 @@ export type Project = {
   github_url: string | null
   is_featured: boolean
   status: 'draft' | 'published'
+  category: ProjectCategory | null
   created_at: string
   updated_at: string
 }

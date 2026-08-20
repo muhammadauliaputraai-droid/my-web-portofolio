@@ -8,7 +8,7 @@ import { Switch } from '@/components/ui/switch'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Badge } from '@/components/ui/badge'
 import { Loader2, Plus, Sparkles, X } from 'lucide-react'
-import { supabase, type Project } from '@/lib/supabase'
+import { supabase, PROJECT_CATEGORIES, type Project, type ProjectCategory } from '@/lib/supabase'
 import { useAuth } from '@/contexts/AuthContext'
 import { toast } from 'sonner'
 
@@ -37,6 +37,7 @@ export default function ProjectForm({
   const [githubUrl, setGithubUrl] = useState('')
   const [status, setStatus] = useState<'draft' | 'published'>('published')
   const [isFeatured, setIsFeatured] = useState(false)
+  const [category, setCategory] = useState<ProjectCategory | ''>('')
 
   useEffect(() => {
     if (projectToEdit) {
@@ -48,6 +49,7 @@ export default function ProjectForm({
       setGithubUrl(projectToEdit.github_url || '')
       setStatus(projectToEdit.status || 'published')
       setIsFeatured(projectToEdit.is_featured || false)
+      setCategory(projectToEdit.category || '')
     } else {
       resetForm()
     }
@@ -63,6 +65,7 @@ export default function ProjectForm({
     setGithubUrl('')
     setStatus('published')
     setIsFeatured(false)
+    setCategory('')
   }
 
   const handleAddTech = (e: React.KeyboardEvent | React.MouseEvent) => {
@@ -97,6 +100,7 @@ export default function ProjectForm({
         github_url: githubUrl.trim() || null,
         status,
         is_featured: isFeatured,
+        category: category || null,
         user_id: user?.id,
         updated_at: new Date().toISOString(),
       }
@@ -172,6 +176,28 @@ export default function ProjectForm({
               onChange={(e) => setDescription(e.target.value)}
               className="bg-background/60"
             />
+          </div>
+
+          {/* Category */}
+          <div className="space-y-1.5">
+            <Label className="text-xs font-semibold">
+              Kategori
+            </Label>
+            <Select
+              value={category}
+              onValueChange={(val) => setCategory(val as ProjectCategory)}
+            >
+              <SelectTrigger className="bg-background/60">
+                <SelectValue placeholder="Pilih kategori proyek" />
+              </SelectTrigger>
+              <SelectContent>
+                {PROJECT_CATEGORIES.map((cat) => (
+                  <SelectItem key={cat} value={cat}>
+                    {cat}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
 
           {/* Image URL & Live Preview */}

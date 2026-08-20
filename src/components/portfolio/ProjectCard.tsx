@@ -6,11 +6,15 @@ import type { Project } from '@/lib/supabase'
 
 type ProjectCardProps = {
   project: Project
+  onClick?: () => void
 }
 
-export default function ProjectCard({ project }: ProjectCardProps) {
+export default function ProjectCard({ project, onClick }: ProjectCardProps) {
   return (
-    <Card className="group relative overflow-hidden rounded-3xl border-border/20 bg-card/30 backdrop-blur-sm hover-lift transition-all duration-500 hover:border-primary/20 gradient-border">
+    <Card
+      className="group relative overflow-hidden rounded-3xl border-border/20 bg-card/30 backdrop-blur-sm hover-lift transition-all duration-500 hover:border-primary/20 gradient-border cursor-pointer"
+      onClick={onClick}
+    >
       {/* Image */}
       <div className="relative overflow-hidden aspect-video bg-muted/20">
         {project.image_url ? (
@@ -32,6 +36,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
                 href={project.live_url}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={(e) => e.stopPropagation()}
                 className="px-4 py-2 rounded-xl bg-white/15 backdrop-blur-md hover:bg-white/25 transition-all text-white text-xs font-semibold flex items-center gap-1.5 border border-white/10"
               >
                 <ExternalLink className="h-3.5 w-3.5" />
@@ -43,6 +48,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
                 href={project.github_url}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={(e) => e.stopPropagation()}
                 className="px-4 py-2 rounded-xl bg-white/15 backdrop-blur-md hover:bg-white/25 transition-all text-white text-xs font-semibold flex items-center gap-1.5 border border-white/10"
               >
                 <GithubIcon className="h-3.5 w-3.5" />
@@ -51,14 +57,19 @@ export default function ProjectCard({ project }: ProjectCardProps) {
             )}
           </div>
         </div>
-        {/* Featured Badge */}
-        {project.is_featured && (
-          <div className="absolute top-4 right-4">
+        {/* Badges */}
+        <div className="absolute top-4 left-4 flex gap-2">
+          {project.is_featured && (
             <Badge className="gradient-bg-animated text-white border-0 shadow-xl text-[10px] font-bold px-3 py-1 rounded-full">
               ★ Featured
             </Badge>
-          </div>
-        )}
+          )}
+          {project.category && (
+            <Badge variant="secondary" className="glass text-foreground/80 text-[10px] font-bold px-2.5 py-0.5 rounded-full border-0">
+              {project.category}
+            </Badge>
+          )}
+        </div>
       </div>
 
       <CardContent className="p-6">
@@ -71,7 +82,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
           </p>
         )}
         <div className="flex flex-wrap gap-1.5">
-          {project.tech_stack?.map((tech) => (
+          {project.tech_stack?.slice(0, 4).map((tech) => (
             <Badge
               key={tech}
               variant="secondary"
@@ -80,6 +91,11 @@ export default function ProjectCard({ project }: ProjectCardProps) {
               {tech}
             </Badge>
           ))}
+          {(project.tech_stack?.length || 0) > 4 && (
+            <Badge variant="secondary" className="text-[11px] font-medium bg-muted/30 border border-border/30 px-2.5 py-0.5 rounded-lg">
+              +{(project.tech_stack?.length || 0) - 4}
+            </Badge>
+          )}
         </div>
       </CardContent>
     </Card>
