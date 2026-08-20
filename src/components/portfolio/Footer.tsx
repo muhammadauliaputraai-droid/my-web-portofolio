@@ -6,7 +6,8 @@ export default function Footer() {
 
   const links = [
     { label: 'Beranda', id: 'hero' },
-    { label: 'Tentang', id: 'about' },
+    { label: 'Biodata', id: 'bio' },
+    { label: 'Keahlian', id: 'about' },
     { label: 'Layanan', id: 'services' },
     { label: 'Pengalaman', id: 'experience' },
     { label: 'Proyek', id: 'projects' },

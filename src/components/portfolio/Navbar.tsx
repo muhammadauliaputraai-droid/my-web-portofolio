@@ -7,7 +7,8 @@ import ThemeToggle from '@/components/ui/theme-toggle'
 
 const navLinks = [
   { label: 'Beranda', href: '#hero' },
-  { label: 'Tentang', href: '#about' },
+  { label: 'Biodata', href: '#bio' },
+  { label: 'Keahlian', href: '#about' },
   { label: 'Layanan', href: '#services' },
   { label: 'Pengalaman', href: '#experience' },
   { label: 'Proyek', href: '#projects' },

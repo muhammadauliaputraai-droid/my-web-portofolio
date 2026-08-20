@@ -2,6 +2,7 @@ import { useEffect, useState, useMemo } from 'react'
 import Navbar from '@/components/portfolio/Navbar'
 import HeroSection from '@/components/portfolio/HeroSection'
 import StatsStrip from '@/components/portfolio/StatsStrip'
+import BioSection from '@/components/portfolio/BioSection'
 import ServicesSection from '@/components/portfolio/ServicesSection'
 import ExperienceTimeline from '@/components/portfolio/ExperienceTimeline'
 import ProjectCard from '@/components/portfolio/ProjectCard'
@@ -131,8 +132,11 @@ export default function Home() {
         </div>
       </section>
 
-      {/* === About Section === */}
-      <section id="about" className="py-24 relative">
+      {/* Biodata & Profil Pribadi Section */}
+      <BioSection />
+
+      {/* === About & Skills Section === */}
+      <section id="about" className="py-24 relative border-t border-border/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-16 animate-fade-in">
             <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full glass text-xs font-semibold text-muted-foreground uppercase tracking-widest mb-4 gradient-border">

@@ -59,13 +59,17 @@ export default function HeroSection() {
         </div>
 
         {/* Main Heading */}
-        <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold leading-[1.12] mb-6 animate-slide-up tracking-tight">
+        <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold leading-[1.15] mb-4 animate-slide-up tracking-tight">
           <span className="text-foreground">Hai, Saya</span>{' '}
-          <span className="gradient-text">Full-Stack Developer</span>
+          <span className="gradient-text">Muhammad Aulia Putra</span>
         </h1>
 
+        <p className="text-base sm:text-xl font-semibold text-foreground/90 mb-4 animate-slide-up stagger-1">
+          Full-Stack Web Developer & UI/UX Enthusiast
+        </p>
+
         {/* Description */}
-        <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto mb-8 leading-relaxed animate-slide-up stagger-2">
+        <p className="text-sm sm:text-base text-muted-foreground max-w-2xl mx-auto mb-8 leading-relaxed animate-slide-up stagger-2">
           Membangun aplikasi web modern berkinerja tinggi dengan fondasi kode bersih,
           arsitektur modular, dan desain antarmuka yang intuitif.
         </p>
