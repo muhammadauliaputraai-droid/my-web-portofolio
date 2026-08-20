@@ -57,29 +57,29 @@ export default function Home() {
       icon: Code2,
       title: 'Clean Code',
       description: 'Menulis kode yang bersih, terstruktur, dan mudah dimaintenance.',
-      color: 'text-blue-400',
-      bg: 'bg-blue-500/10',
+      color: 'text-sky-500 dark:text-sky-400',
+      bg: 'bg-sky-500/10',
     },
     {
       icon: Palette,
       title: 'UI/UX Design',
       description: 'Menciptakan antarmuka yang indah, fungsional, dan intuitif.',
-      color: 'text-purple-400',
-      bg: 'bg-purple-500/10',
+      color: 'text-indigo-500 dark:text-indigo-400',
+      bg: 'bg-indigo-500/10',
     },
     {
       icon: Zap,
       title: 'Performance',
       description: 'Optimalisasi performa aplikasi untuk pengalaman yang cepat dan responsif.',
-      color: 'text-rose-400',
+      color: 'text-rose-500 dark:text-rose-400',
       bg: 'bg-rose-500/10',
     },
     {
       icon: Users,
       title: 'Kolaborasi',
       description: 'Bekerja sama secara efektif untuk menghasilkan solusi digital terbaik.',
-      color: 'text-emerald-400',
-      bg: 'bg-emerald-500/10',
+      color: 'text-cyan-500 dark:text-cyan-400',
+      bg: 'bg-cyan-500/10',
     },
   ]
 
@@ -103,7 +103,7 @@ export default function Home() {
           <div className="flex flex-wrap items-center justify-center gap-8 sm:gap-12">
             {techStack.map((tech) => (
               <div key={tech.name} className="flex items-center gap-2 text-muted-foreground/70 hover:text-foreground transition-colors">
-                <tech.icon className="h-4 w-4 text-primary/80" />
+                <tech.icon className="h-4 w-4 text-primary" />
                 <span className="text-xs font-semibold uppercase tracking-wider">{tech.name}</span>
               </div>
             ))}
@@ -115,14 +115,14 @@ export default function Home() {
       <section id="about" className="py-24 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-16 animate-fade-in">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full glass text-xs font-semibold text-muted-foreground uppercase tracking-widest mb-4 border border-border/40">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full glass text-xs font-semibold text-muted-foreground uppercase tracking-widest mb-4 gradient-border">
               Keahlian
             </div>
             <h2 className="text-3xl sm:text-4xl font-extrabold mb-4 tracking-tight">
               Tentang <span className="gradient-text">Saya</span>
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto text-base sm:text-lg leading-relaxed">
-              Passionate dalam merancang dan mengembangkan aplikasi web modern dengan fondasi kode yang kuat serta pengalaman visual yang elegan.
+              Passionate dalam merancang dan mengembangkan aplikasi web modern dengan fondasi kode yang kuat serta perpaduan visual yang harmonis.
             </p>
           </div>
 
@@ -132,7 +132,7 @@ export default function Home() {
                 key={item.title}
                 className={`p-6 rounded-2xl border border-border/40 bg-card/40 backdrop-blur-sm hover-lift transition-all duration-200 animate-slide-up stagger-${index + 1}`}
               >
-                <div className={`w-12 h-12 rounded-xl ${item.bg} ${item.color} flex items-center justify-center mb-4`}>
+                <div className={`w-12 h-12 rounded-xl ${item.bg} ${item.color} flex items-center justify-center mb-4 shadow-sm`}>
                   <item.icon className="h-6 w-6" />
                 </div>
                 <h3 className="font-bold text-base mb-2">{item.title}</h3>
@@ -149,7 +149,7 @@ export default function Home() {
       <section id="projects" className="py-24 relative border-t border-border/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-10 animate-fade-in">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full glass text-xs font-semibold text-muted-foreground uppercase tracking-widest mb-4 border border-border/40">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full glass text-xs font-semibold text-muted-foreground uppercase tracking-widest mb-4 gradient-border">
               Portfolio
             </div>
             <h2 className="text-3xl sm:text-4xl font-extrabold mb-4 tracking-tight">
@@ -163,12 +163,12 @@ export default function Home() {
           {/* === Category Filter Tabs === */}
           {!loading && projects.length > 0 && availableCategories.length > 0 && (
             <div className="flex justify-center mb-10 animate-slide-up stagger-1">
-              <div className="inline-flex flex-wrap justify-center gap-1.5 p-1 rounded-xl glass border border-border/40">
+              <div className="inline-flex flex-wrap justify-center gap-1.5 p-1 rounded-xl glass gradient-border">
                 <button
                   onClick={() => setActiveFilter('Semua')}
                   className={`px-4 py-2 rounded-lg text-xs font-semibold transition-all duration-200 ${
                     activeFilter === 'Semua'
-                      ? 'gradient-bg text-white shadow-sm'
+                      ? 'gradient-bg text-white shadow-sm glow'
                       : 'text-muted-foreground hover:text-foreground hover:bg-muted/30'
                   }`}
                 >
@@ -187,7 +187,7 @@ export default function Home() {
                       onClick={() => setActiveFilter(cat)}
                       className={`px-4 py-2 rounded-lg text-xs font-semibold transition-all duration-200 ${
                         activeFilter === cat
-                          ? 'gradient-bg text-white shadow-sm'
+                          ? 'gradient-bg text-white shadow-sm glow'
                           : 'text-muted-foreground hover:text-foreground hover:bg-muted/30'
                       }`}
                     >
@@ -267,7 +267,7 @@ export default function Home() {
       <section id="contact" className="py-24 relative border-t border-border/30">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           <div className="animate-fade-in">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full glass text-xs font-semibold text-muted-foreground uppercase tracking-widest mb-4 border border-border/40">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full glass text-xs font-semibold text-muted-foreground uppercase tracking-widest mb-4 gradient-border">
               Kontak
             </div>
             <h2 className="text-3xl sm:text-4xl font-extrabold mb-4 tracking-tight">
@@ -289,8 +289,8 @@ export default function Home() {
                 ),
                 title: 'Email',
                 subtitle: 'hello@example.com',
-                color: 'text-blue-400',
-                bg: 'bg-blue-500/10',
+                color: 'text-sky-500 dark:text-sky-400',
+                bg: 'bg-sky-500/10',
               },
               {
                 href: 'https://github.com',
@@ -301,8 +301,8 @@ export default function Home() {
                 ),
                 title: 'GitHub',
                 subtitle: '@username',
-                color: 'text-purple-400',
-                bg: 'bg-purple-500/10',
+                color: 'text-indigo-500 dark:text-indigo-400',
+                bg: 'bg-indigo-500/10',
               },
               {
                 href: 'https://linkedin.com',
@@ -313,7 +313,7 @@ export default function Home() {
                 ),
                 title: 'LinkedIn',
                 subtitle: 'in/username',
-                color: 'text-rose-400',
+                color: 'text-rose-500 dark:text-rose-400',
                 bg: 'bg-rose-500/10',
               },
             ].map((contact) => (
@@ -324,7 +324,7 @@ export default function Home() {
                 rel="noopener noreferrer"
                 className="p-6 rounded-2xl border border-border/40 bg-card/40 backdrop-blur-sm hover-lift transition-all duration-200 text-center"
               >
-                <div className={`w-12 h-12 rounded-xl ${contact.bg} ${contact.color} flex items-center justify-center mx-auto mb-3`}>
+                <div className={`w-12 h-12 rounded-xl ${contact.bg} ${contact.color} flex items-center justify-center mx-auto mb-3 shadow-sm`}>
                   {contact.icon}
                 </div>
                 <h3 className="font-bold text-sm mb-1">{contact.title}</h3>

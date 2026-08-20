@@ -4,59 +4,59 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Blue to Pastel Red Theme - Light Mode */
-  --background: 216 33% 98%;
-  --foreground: 222 47% 11%;
+  /* Light Blue & Pastel Red Theme - Light Mode */
+  --background: 204 33% 98%;
+  --foreground: 215 35% 12%;
   --card: 0 0% 100%;
-  --card-foreground: 222 47% 11%;
+  --card-foreground: 215 35% 12%;
   --popover: 0 0% 100%;
-  --popover-foreground: 222 47% 11%;
-  --primary: 221 83% 53%;
+  --popover-foreground: 215 35% 12%;
+  --primary: 199 89% 48%; /* Vibrant Light Sky Blue (#0ea5e9) */
   --primary-foreground: 0 0% 100%;
-  --secondary: 214 32% 91%;
-  --secondary-foreground: 222 47% 11%;
-  --muted: 214 32% 93%;
+  --secondary: 204 30% 93%;
+  --secondary-foreground: 215 35% 12%;
+  --muted: 204 30% 94%;
   --muted-foreground: 215 16% 45%;
-  --accent: 346 77% 55%;
+  --accent: 346 84% 60%; /* Soft Pastel Coral Red (#f43f5e) */
   --accent-foreground: 0 0% 100%;
   --destructive: 0 84% 60%;
   --destructive-foreground: 0 0% 100%;
-  --border: 214 32% 88%;
-  --input: 214 32% 88%;
-  --ring: 221 83% 53%;
+  --border: 204 25% 89%;
+  --input: 204 25% 89%;
+  --ring: 199 89% 48%;
   --radius: 0.75rem;
-  --chart-1: 221 83% 53%;
-  --chart-2: 346 77% 55%;
+  --chart-1: 199 89% 48%;
+  --chart-2: 346 84% 60%;
   --chart-3: 262 83% 58%;
-  --chart-4: 199 89% 48%;
+  --chart-4: 190 90% 50%;
   --chart-5: 12 76% 61%;
 }
 
 .dark {
-  /* Elegant Dark Mode: Deep Slate Blue with Subtle Warm Rose Accents */
-  --background: 224 35% 6%;
+  /* Light Blue & Pastel Red Theme - Dark Mode */
+  --background: 218 35% 7%;
   --foreground: 210 40% 96%;
-  --card: 224 35% 9%;
+  --card: 218 35% 10%;
   --card-foreground: 210 40% 96%;
-  --popover: 224 35% 9%;
+  --popover: 218 35% 10%;
   --popover-foreground: 210 40% 96%;
-  --primary: 217 91% 60%;
-  --primary-foreground: 0 0% 100%;
-  --secondary: 224 25% 15%;
+  --primary: 198 93% 60%; /* Luminous Sky Light Blue (#38bdf8) */
+  --primary-foreground: 218 35% 10%;
+  --secondary: 218 25% 16%;
   --secondary-foreground: 210 40% 96%;
-  --muted: 224 25% 15%;
-  --muted-foreground: 220 15% 65%;
-  --accent: 346 80% 60%;
+  --muted: 218 25% 16%;
+  --muted-foreground: 215 20% 65%;
+  --accent: 346 87% 65%; /* Radiant Pastel Red/Rose (#fb7185) */
   --accent-foreground: 0 0% 100%;
   --destructive: 0 84% 60%;
   --destructive-foreground: 0 0% 100%;
-  --border: 224 25% 18%;
-  --input: 224 25% 18%;
-  --ring: 217 91% 60%;
-  --chart-1: 217 91% 60%;
-  --chart-2: 346 80% 60%;
+  --border: 218 25% 18%;
+  --input: 218 25% 18%;
+  --ring: 198 93% 60%;
+  --chart-1: 198 93% 60%;
+  --chart-2: 346 87% 65%;
   --chart-3: 262 83% 65%;
-  --chart-4: 199 89% 55%;
+  --chart-4: 190 90% 55%;
   --chart-5: 12 76% 65%;
 }
 
@@ -130,7 +130,7 @@
     scroll-behavior: smooth;
   }
 
-  /* Clean Scrollbar */
+  /* Clean Scrollbar with Light Blue to Red thumb */
   ::-webkit-scrollbar {
     width: 6px;
   }
@@ -138,11 +138,11 @@
     background: transparent;
   }
   ::-webkit-scrollbar-thumb {
-    background: hsl(var(--muted-foreground) / 0.3);
+    background: linear-gradient(180deg, hsl(var(--primary) / 0.4), hsl(var(--accent) / 0.4));
     border-radius: 3px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: hsl(var(--muted-foreground) / 0.5);
+    background: linear-gradient(180deg, hsl(var(--primary) / 0.7), hsl(var(--accent) / 0.7));
   }
 
   ::selection {
@@ -151,28 +151,28 @@
   }
 }
 
-/* === Harmonious Utilities (Light & Dark Mode Adaptive) === */
+/* === Light Blue + Pastel Red Utilities === */
 @layer utilities {
-  /* Adaptive Gradient Text: deep in light mode, luminous in dark mode */
+  /* Adaptive Light Blue -> Soft Violet -> Pastel Red Gradient Text */
   .gradient-text {
     @apply bg-clip-text text-transparent;
-    background-image: linear-gradient(135deg, #1d4ed8 0%, #7c3aed 50%, #e11d48 100%);
+    background-image: linear-gradient(135deg, #0284c7 0%, #0ea5e9 30%, #8b5cf6 65%, #e11d48 100%);
   }
 
   .dark .gradient-text {
-    background-image: linear-gradient(135deg, #60a5fa 0%, #a78bfa 50%, #fb7185 100%);
+    background-image: linear-gradient(135deg, #38bdf8 0%, #7dd3fc 30%, #c084fc 65%, #fb7185 100%);
   }
 
-  /* Solid gradient background */
+  /* Light Blue to Pastel Red Solid Gradient Background */
   .gradient-bg {
-    background: linear-gradient(135deg, #2563eb 0%, #6366f1 50%, #f43f5e 100%);
+    background: linear-gradient(135deg, #0ea5e9 0%, #6366f1 45%, #f43f5e 100%);
   }
 
   .gradient-bg-animated {
-    background: linear-gradient(135deg, #2563eb 0%, #6366f1 50%, #f43f5e 100%);
+    background: linear-gradient(135deg, #0ea5e9 0%, #6366f1 45%, #f43f5e 100%);
   }
 
-  /* Glassmorphism: light-tinted in light mode, dark-tinted in dark mode */
+  /* Glassmorphism */
   .glass {
     background: hsl(var(--card) / 0.7);
     backdrop-filter: blur(16px);
@@ -187,16 +187,17 @@
     border: 1px solid hsl(var(--border) / 0.8);
   }
 
-  /* Soft Glows */
+  /* Light Blue Glow */
   .glow {
-    box-shadow: 0 4px 20px hsl(var(--primary) / 0.15);
+    box-shadow: 0 4px 20px hsl(var(--primary) / 0.25);
   }
 
+  /* Pastel Red Glow */
   .glow-accent {
-    box-shadow: 0 4px 20px hsl(var(--accent) / 0.15);
+    box-shadow: 0 4px 20px hsl(var(--accent) / 0.25);
   }
 
-  /* Clean subtle gradient border */
+  /* Dual Light Blue + Red Border */
   .gradient-border {
     position: relative;
   }
@@ -206,7 +207,7 @@
     inset: -1px;
     border-radius: inherit;
     padding: 1px;
-    background: linear-gradient(135deg, hsl(var(--primary) / 0.4), transparent 60%, hsl(var(--accent) / 0.4));
+    background: linear-gradient(135deg, hsl(var(--primary) / 0.45), transparent 55%, hsl(var(--accent) / 0.45));
     mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     mask-composite: exclude;
@@ -220,7 +221,9 @@
   }
   .hover-lift:hover {
     transform: translateY(-4px);
-    box-shadow: 0 12px 30px hsl(var(--primary) / 0.1);
+    box-shadow:
+      0 12px 28px hsl(var(--primary) / 0.12),
+      0 4px 12px hsl(var(--accent) / 0.08);
     border-color: hsl(var(--primary) / 0.4);
   }
 
@@ -232,9 +235,9 @@
   .stagger-5 { animation-delay: 0.25s; }
   .stagger-6 { animation-delay: 0.3s; }
 
-  /* Section divider */
+  /* Section divider with subtle dual-glow */
   .section-divider {
     height: 1px;
-    background: linear-gradient(90deg, transparent, hsl(var(--border) / 0.8), transparent);
+    background: linear-gradient(90deg, transparent, hsl(var(--primary) / 0.3), hsl(var(--accent) / 0.3), transparent);
   }
 }
