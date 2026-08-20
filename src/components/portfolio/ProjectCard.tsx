@@ -12,7 +12,7 @@ type ProjectCardProps = {
 export default function ProjectCard({ project, onClick }: ProjectCardProps) {
   return (
     <Card
-      className="group relative overflow-hidden rounded-2xl border-border/40 bg-card/40 backdrop-blur-sm hover-lift transition-all duration-200 cursor-pointer"
+      className="group relative overflow-hidden rounded-3xl border border-border/80 bg-card/90 hover:border-primary/50 backdrop-blur-md shadow-lg hover-lift transition-all duration-300 cursor-pointer"
       onClick={onClick}
     >
       {/* Image */}

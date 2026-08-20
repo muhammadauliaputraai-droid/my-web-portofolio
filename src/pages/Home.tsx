@@ -154,7 +154,7 @@ export default function Home() {
             {skills.map((item, index) => (
               <div
                 key={item.title}
-                className={`p-7 rounded-3xl border border-border/40 bg-card/40 backdrop-blur-sm hover-lift transition-all duration-200 animate-slide-up stagger-${index + 1} flex flex-col justify-between`}
+                className={`p-7 rounded-3xl border border-border/70 bg-card/85 hover:border-primary/50 backdrop-blur-md shadow-md hover-lift transition-all duration-300 animate-slide-up stagger-${index + 1} flex flex-col justify-between`}
               >
                 <div>
                   <div className={`w-12 h-12 rounded-2xl ${item.bg} ${item.color} flex items-center justify-center mb-5 shadow-sm`}>
